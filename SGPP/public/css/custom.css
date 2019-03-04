@@ -1,0 +1,45 @@
+.my-card {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50% !important;
+    top: -50px !important;
+    color: #00365f !important;
+}
+
+.texto-card {
+    display: block;
+    margin-top: -50px !important;
+    color: #00365f !important;
+}
+
+body {
+    /*overflow-y: hidden !important;*/
+    /*overflow-x: hidden !important;*/
+    background-color: #f8f8f8;
+    background-image: url("../img/fondo_login-min.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+}
+
+.ufv-card {
+    border-color: #00365f !important;
+    color: #00365f !important;
+}
+
+.link-card:hover > div > div {
+    border-color: #0086ec !important;
+    color: #0086ec !important;
+}
+
+.link-card:hover > div {
+    border-color: #0086ec !important;
+    color: #0086ec !important;
+}
+
+.link-card {
+    text-decoration: none !important;
+}
+
+
