@@ -17,6 +17,5 @@ class DatabaseSeeder extends Seeder
         $this->call(TitulacionTableSeeder::class);
         $this->call(CriterioevaluacionTableSeeder::class);
         $this->call(InstitucionTableSeeder::class);
-
     }
 }

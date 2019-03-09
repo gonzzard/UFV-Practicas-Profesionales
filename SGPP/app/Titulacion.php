@@ -9,4 +9,19 @@ class Titulacion extends Model
     public function practicas() {
         return $this->hasMany('App\Practica');
     }
+
+    public function director()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function titulacionPrincipal()
+    {
+        return $this->belongsTo('App\Titulacion');
+    }
+
+    public function menciones()
+    {
+        return $this->hasMany('App\Titulacion');
+    }
 }

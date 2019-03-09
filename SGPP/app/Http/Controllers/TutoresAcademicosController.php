@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
-class UserController extends Controller
+class TutoresAcademicosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +17,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->paginate(8);
-        return view('admin.user.index')->with(['users' => $users]);
+        $roleName = 'Tutor Académico';
+        $users = User::whereHas('roles', function ($q) use ($roleName) {
+            $q->where('nombre', $roleName);
+        })->paginate(8);
+
+        return view('director.tutoresAcademicos.index')->with(['users' => $users]);
     }
 
     /**
@@ -28,8 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = Role::All();
-        return view('admin.user.create')->with(['roles' => $roles]);
+        return view('director.tutoresAcademicos.create');
     }
 
     /**
@@ -58,11 +61,9 @@ class UserController extends Controller
             'password' => Hash::make($request['password']),
         ]);
 
-        foreach ($request['role'] as $role) {
-            $user->roles()->attach(Role::where('id', $role)->first());
-        }
-
-        return redirect('user');
+        $user->roles()->attach(Role::where('nombre', 'Tutor Académico')->first());
+        
+        return redirect('tutoresAcademicos');
 
     }
 
@@ -77,7 +78,7 @@ class UserController extends Controller
         $user = User::where('id', $id)->with('roles')->get()->first();
         $allRoles = Role::orderBy('nombre', 'asc')->get();
 
-        return view('admin.user.show')->with(['user' => $user, 'allRoles' => $allRoles]);
+        return view('director.tutoresAcademicos.show')->with(['user' => $user]);
     }
 
     /**
@@ -89,9 +90,8 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->with('roles')->get()->first();
-        $allRoles = Role::orderBy('nombre', 'asc')->get();
 
-        return view('admin.user.edit')->with(['user' => $user, 'allRoles' => $allRoles]);
+        return view('director.tutoresAcademicos.edit')->with(['user' => $user]);
     }
 
     /**
@@ -133,7 +133,7 @@ class UserController extends Controller
 
         $user->roles()->sync($request->role);
 
-        return redirect('user');
+        return redirect('tutoresAcademicos');
     }
 
     /**
@@ -144,18 +144,5 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-
-        if (isset($user)) {
-            $tmp = $user->name;
-
-            $user->roles()->detach();
-            $user->delete();
-
-            Session::flash('user.destroy', 'El usuario ' . $tmp . ' ha sido eliminado del sistema');
-            return redirect('user');
-        } else {
-            return redirect('404');
-        }
     }
 }

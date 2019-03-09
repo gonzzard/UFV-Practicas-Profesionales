@@ -14,7 +14,8 @@ class InstitucionController extends Controller
      */
     public function index()
     {
-        //
+        $instituciones = Institucion::orderBy('denominacion', 'DESC')->paginate(8);
+        return view('admin.instituciones.index')->with(['instituciones' => $instituciones]);
     }
 
     /**
@@ -24,7 +25,7 @@ class InstitucionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.instituciones.create');
     }
 
     /**
@@ -35,7 +36,12 @@ class InstitucionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $institucion = new Institucion();
+        $institucion->denominacion = $request['denominacion'];
+        $institucion->direccion = $request['direccion'];
+        $institucion->telefono = $request['telefono'];
+
+        $institucion->save();
     }
 
     /**
@@ -57,7 +63,7 @@ class InstitucionController extends Controller
      */
     public function edit(Institucion $institucion)
     {
-        //
+        
     }
 
     /**

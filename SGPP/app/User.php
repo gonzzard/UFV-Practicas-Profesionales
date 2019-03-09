@@ -37,6 +37,37 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role');
     }
 
+    public function titulacion()
+    {
+        return $this->hasOne('App\Titulacion', 'director_id');
+    }
+
+    public function institucion()
+    {
+        return $this->belongsTo('App\Institucion');
+    }
+
+    public function delete()
+    {
+        $titulacion = $this->titulacion;
+
+        if(isset($titulacion))
+        {
+            $titulacion->director()->dissociate()->save();
+        }
+
+        $this->roles()->delete();
+
+        $institucion = $this->institution;
+
+        if(isset($institucion))
+        {
+            $institucion->dissociate()->save();
+        }
+        
+        return parent::delete();
+    }
+
     /*
     *   @param string | array $roles
     */

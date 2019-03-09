@@ -14,7 +14,8 @@ class CursoacadController extends Controller
      */
     public function index()
     {
-        //
+        $cursosacad = Cursoacad::orderBy('denominacion', 'DESC')->paginate(8);
+        return view('admin.cursoacad.index')->with(['cursosacad' => $cursosacad]);
     }
 
     /**
@@ -24,7 +25,7 @@ class CursoacadController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.cursoacad.create');
     }
 
     /**
@@ -35,7 +36,25 @@ class CursoacadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'denominacion' => ['required', 'string', 'unique:cursoacads'],
+        ]);
+
+        $cursoacad = new Cursoacad();
+        $cursoacad->denominacion = $request['denominacion'];
+        $cursoacad->activo = 0;
+
+        if(isset($request['activo']))
+        {
+            $cursoacadActivo = Cursoacad::where('activo', 1)->first();
+            $cursoacadActivo->activo = 0;
+            $cursoacad->activo = 1;
+            $cursoacadActivo->save();
+        }
+
+        $cursoacad->save();
+
+        return redirect('cursoacad');
     }
 
     /**
@@ -44,9 +63,10 @@ class CursoacadController extends Controller
      * @param  \App\Cursoacad  $cursoacad
      * @return \Illuminate\Http\Response
      */
-    public function show(Cursoacad $cursoacad)
+    public function show($id)
     {
-        //
+        $cursoacad = Cursoacad::where('id', $id)->first();
+        return view('admin.cursoacad.show')->with(['cursoacad' => $cursoacad]);
     }
 
     /**
@@ -55,9 +75,10 @@ class CursoacadController extends Controller
      * @param  \App\Cursoacad  $cursoacad
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cursoacad $cursoacad)
+    public function edit($id)
     {
-        //
+        $cursoacad = Cursoacad::where('id', $id)->first();
+        return view('admin.cursoacad.edit')->with(['cursoacad' => $cursoacad]);
     }
 
     /**
@@ -67,9 +88,27 @@ class CursoacadController extends Controller
      * @param  \App\Cursoacad  $cursoacad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cursoacad $cursoacad)
+    public function update(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'denominacion' => ['required', 'string', 'unique:cursoacads'],
+        ]);
+        
+        $cursoacad = Cursoacad::where('id', $request['id_curso'])->first();
+        $cursoacad->denominacion = $request['denominacion'];
+        $cursoacad->activo = 0;
+
+        if(isset($request['activo']))
+        {
+            $cursoacadActivo = Cursoacad::where('activo', 1)->first();
+            $cursoacadActivo->activo = 0;
+            $cursoacad->activo = 1;
+            $cursoacadActivo->save();
+        }
+
+        $cursoacad->save();
+
+        return redirect('cursoacad');
     }
 
     /**

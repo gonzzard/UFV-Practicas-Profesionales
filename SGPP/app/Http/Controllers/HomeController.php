@@ -25,7 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //dd(Auth::user()->roles()->first()->nombre);
         return view('home');
     }
 

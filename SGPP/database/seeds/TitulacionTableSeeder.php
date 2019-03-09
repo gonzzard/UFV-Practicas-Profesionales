@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Titulacion;
+use App\User;
 
 class TitulacionTableSeeder extends Seeder
 {
@@ -17,9 +18,12 @@ class TitulacionTableSeeder extends Seeder
         $titulacion->mencion = false;
         $titulacion->save();
 
+        $director = User::where('id', 2)->first();
+
         $titulacion = new Titulacion();
         $titulacion->denominacion = 'Título propio en Robótica';
         $titulacion->mencion = true;
+        $titulacion->director()->associate($director)->save();
         $titulacion->save();
     }
 }

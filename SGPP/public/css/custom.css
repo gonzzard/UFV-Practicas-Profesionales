@@ -1,9 +1,10 @@
 .my-card {
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: auto !important;
+    margin-right: auto !important;
     border-radius: 50% !important;
     top: -50px !important;
     color: #00365f !important;
+    width: 85px;
 }
 
 .texto-card {
@@ -13,8 +14,6 @@
 }
 
 body {
-    /*overflow-y: hidden !important;*/
-    /*overflow-x: hidden !important;*/
     background-color: #f8f8f8;
     background-image: url("../img/fondo_login-min.jpg");
     background-size: cover;
@@ -23,9 +22,14 @@ body {
     background-attachment: fixed;
 }
 
+.fa-2x {
+    vertical-align: middle !important;
+}
+
 .ufv-card {
     border-color: #00365f !important;
     color: #00365f !important;
+    text-align: center;
 }
 
 .link-card:hover > div > div {
@@ -42,4 +46,34 @@ body {
     text-decoration: none !important;
 }
 
+body {
+    color: #00365f !important;
+}
 
+hr {
+    border-color: #00365f !important;
+}
+
+.btn-primary {
+    background-color: #00365f !important;
+    border-color: #00365f !important;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.page-item.active .page-link {
+    background-color: #00365f !important;
+    border-color: #00365f !important;
+    color: #fff !important;
+}
+
+.page-link {
+    color: #00365f !important;
+}
+
+.vertical-center{
+    vertical-align: middle !important;
+}

@@ -15,7 +15,7 @@ class CreateCursoacadTable extends Migration
     {
         Schema::create('cursoacads', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('denominacion');
+            $table->string('denominacion')->unique();
             $table->boolean('activo');
             $table->timestamps();
         });

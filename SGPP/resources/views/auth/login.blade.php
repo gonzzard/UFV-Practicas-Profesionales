@@ -1,6 +1,13 @@
 @extends('layouts.app')
 <style>
-  /* BASIC */
+  #pie {
+    display: none!important;
+  }
+
+  #carga-contenido {
+    background: rgb(255, 255, 255, 0) !important;
+  }
+
   nav {
     display: none !important;
   }
@@ -124,11 +131,11 @@
     margin: 5px;
     width: 85%;
     border: 2px solid #f6f6f6;
-    -webkit-transition: all 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out;
-    -ms-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
   }
@@ -153,8 +160,8 @@
   .fadeInDown {
     -webkit-animation-email: fadeInDown;
     animation-email: fadeInDown;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
+    -webkit-animation-duration: 0.5s;
+    animation-duration: 0.5s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
   }
@@ -224,9 +231,9 @@
     -moz-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
 
-    -webkit-animation-duration: 1s;
-    -moz-animation-duration: 1s;
-    animation-duration: 1s;
+    -webkit-animation-duration: 0.5s;
+    -moz-animation-duration: 0.5s;
+    animation-duration: 0.5s;
   }
 
   .fadeIn.first {
@@ -236,21 +243,21 @@
   }
 
   .fadeIn.second {
-    -webkit-animation-delay: 0.6s;
-    -moz-animation-delay: 0.6s;
-    animation-delay: 0.6s;
+    -webkit-animation-delay: 0.4s;
+    -moz-animation-delay: 0.4s;
+    animation-delay: 0.4s;
   }
 
   .fadeIn.third {
-    -webkit-animation-delay: 0.8s;
-    -moz-animation-delay: 0.8s;
-    animation-delay: 0.8s;
+    -webkit-animation-delay: 0.4s;
+    -moz-animation-delay: 0.4s;
+    animation-delay: 0.4s;
   }
 
   .fadeIn.fourth {
-    -webkit-animation-delay: 1s;
-    -moz-animation-delay: 1s;
-    animation-delay: 1s;
+    -webkit-animation-delay: 0.4s;
+    -moz-animation-delay: 0.4s;
+    animation-delay: 0.4s;
   }
 
   /* Simple CSS3 Fade-in Animation */
@@ -289,7 +296,7 @@
 <div class="wrapper fadeInDown">
   <div id="formContent">
     <div class="fadeIn first">
-      <img src="https://pbs.twimg.com/profile_images/1053543620006035456/Z4rzKTz5_400x400.jpg" id="icon" alt="User Icon" />
+      <img src="{{URL::asset('img/logo.jpg')}}" id="icon" alt="UFV" />
     </div>
 
     <h2 class="fadeIn second" style="color: #00365F;">Prácticas <br>Profesionales</h2>

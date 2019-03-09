@@ -23,5 +23,18 @@ class UserTableSeeder extends Seeder
         $usuario_admin->save();
 
         $usuario_admin->roles()->attach($role_admin);
+
+        $role_profInst = Role::where('nombre', 'Tutor Institucional')->first();
+
+        $usuario_profInst = new User();
+        $usuario_profInst->name = "Gonzalo";
+        $usuario_profInst->apellido1 = "de las Heras";
+        $usuario_profInst->apellido2 = "de Matías";
+        $usuario_profInst->docIdentificacion = "00000001R";
+        $usuario_profInst->email = "test@ufv.es";
+        $usuario_profInst->password = bcrypt('1234asdf');
+        $usuario_profInst->save();
+
+        $usuario_profInst->roles()->attach($role_profInst);
     }
 }

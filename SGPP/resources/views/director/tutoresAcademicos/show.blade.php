@@ -70,18 +70,12 @@
 
             <div class="form-group row">
                 <label for="role" class="col-md-4 col-form-label text-md-right">Roles</label>
+
                 <div class="col-md-6">
-                    @foreach($allRoles as $role) 
-                    <div class="form-check">
-                        @if ($user->roles->contains($role['id']))
-                            <input type="checkbox" name="role[]" value="{{ $role['id'] }}" checked disabled>
-                            <label class="form-check-label" for="role[]">{{ $role['nombre'] }}</label><br> 
-                        @else
-                            <input type="checkbox" name="role[]" value="{{ $role['id'] }}" disabled>
-                            <label class="form-check-label" for="role[]">{{ $role['nombre'] }}</label><br>
-                        @endif 
-                    </div>
-                    @endforeach
+
+                    @foreach($allRoles as $role) @if ($user->roles->contains($role['id']))
+                    <input type="checkbox" name="role[]" value="{{ $role['id'] }}" checked disabled>{{ $role['nombre'] }}<br> @else
+                    <input type="checkbox" name="role[]" value="{{ $role['id'] }}" disabled>{{ $role['nombre'] }}<br> @endif @endforeach
                 </div>
             </div>
         </div>

@@ -15,7 +15,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <form method="POST" action="{{ route('user.store') }}">
+            <form method="POST" action="{{ route('tutoresAcademicos.store') }}">
                 @csrf
 
                 <div class="form-group row">
@@ -96,18 +96,6 @@
 
                     <div class="col-md-6">
                         <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="role" class="col-md-4 col-form-label text-md-right">Rol</label>
-                    <div class="col-md-6">
-                        @foreach($roles as $role) 
-                        <div class="form-check">
-                            <input type="checkbox" name="role[]" value="{{ $role['id'] }}">
-                            <label class="form-check-label" for="role[]">{{ $role['nombre'] }}</label><br>
-                        </div>
-                        @endforeach
                     </div>
                 </div>
 
