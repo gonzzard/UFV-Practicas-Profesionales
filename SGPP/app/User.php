@@ -42,9 +42,24 @@ class User extends Authenticatable
         return $this->hasOne('App\Titulacion', 'director_id');
     }
 
-    public function institucion()
+    public function institucion_resp()
     {
-        return $this->belongsTo('App\Institucion');
+        return $this->hasOne('App\Institucion', 'responsable_d');
+    }
+
+    public function asignaciones()
+    {
+        return $this->hasMany('App\Asignacion');
+    }
+
+    public function asignacionesTutorAcad()
+    {
+        return $this->hasMany('App\Asignacion');
+    }
+
+    public function asignacionesTutorInst()
+    {
+        return $this->hasMany('App\Asignacion');
     }
 
     public function delete()

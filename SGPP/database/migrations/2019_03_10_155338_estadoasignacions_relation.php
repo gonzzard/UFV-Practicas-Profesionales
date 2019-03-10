@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCriterioevaluacionsTable extends Migration
+class EstadoasignacionsRelation extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreateCriterioevaluacionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('criterioevaluacions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('denominacion');
-            $table->integer('ponderacion');
-            $table->timestamps();
+        Schema::table('asignacions', function (Blueprint $table) {
+            $table->integer('estado_id')->unsigned();
+            $table->foreign('estado_id')->references('id')->on('estadoasignacions');
         });
     }
 
@@ -28,6 +26,8 @@ class CreateCriterioevaluacionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('criterioevaluacions');
+        Schema::table('asignacions', function (Blueprint $table) {
+            //
+        });
     }
 }

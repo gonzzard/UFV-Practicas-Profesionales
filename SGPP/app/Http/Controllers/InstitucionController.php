@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Institucion;
+use App\User;
 use Illuminate\Http\Request;
 
 class InstitucionController extends Controller
@@ -14,8 +15,8 @@ class InstitucionController extends Controller
      */
     public function index()
     {
-        $instituciones = Institucion::orderBy('denominacion', 'DESC')->paginate(8);
-        return view('admin.instituciones.index')->with(['instituciones' => $instituciones]);
+        $instituciones = Institucion::with('responsable')->orderBy('denominacion', 'DESC')->paginate(8);
+        return view('director.instituciones.index')->with(['instituciones' => $instituciones]);
     }
 
     /**
@@ -25,7 +26,16 @@ class InstitucionController extends Controller
      */
     public function create()
     {
-        return view('admin.instituciones.create');
+        $roleName = "Tutor Institucional";
+
+        $responsablesActuales = Institucion::whereNotNull('responsable_id')->select('responsable_id')->get()->toArray();
+            
+        $posiblesResponsables = User::whereNotIn('id', $responsablesActuales)->whereHas('roles', function ($q) use ($roleName) {
+            $q->where('nombre', $roleName);
+        })
+        ->get();
+
+        return view('director.instituciones.create')->with(['responsables' => $posiblesResponsables]);
     }
 
     /**
@@ -36,12 +46,22 @@ class InstitucionController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'denominacion' => ['required', 'string', 'unique:institucions'],
+        ]);
+
         $institucion = new Institucion();
         $institucion->denominacion = $request['denominacion'];
         $institucion->direccion = $request['direccion'];
         $institucion->telefono = $request['telefono'];
 
+        $responsable = User::where('id', $request['responsable_id'])->first();
+
+        $institucion->responsable()->associate($responsable)->save();
+
         $institucion->save();
+
+        return redirect('instituciones');
     }
 
     /**
@@ -50,9 +70,35 @@ class InstitucionController extends Controller
      * @param  \App\Institucion  $institucion
      * @return \Illuminate\Http\Response
      */
-    public function show(Institucion $institucion)
+    public function show($id)
     {
-        //
+        $roleName = "Tutor Institucional";
+
+        $institucion = Institucion::where('id', $id)->first();
+
+        if(isset($institucion->responsable))
+        {
+            // Tiene responsable
+            $responsablesActuales = Institucion::where('responsable_id', '<>', $institucion->responsable->id)
+            ->select('responsable_id')->get()->toArray();
+
+            $posiblesResponsables = User::whereNotIn('id', $responsablesActuales)->whereHas('roles', function ($q) use ($roleName) {
+                $q->where('nombre', $roleName);
+            })
+            ->get();
+        }
+        else
+        {
+            // No tiene responsable
+            $responsablesActuales = Institucion::whereNotNull('responsable_id')->select('responsable_id')->get()->toArray();
+            
+            $posiblesResponsables = User::whereNotIn('id', $responsablesActuales)->whereHas('roles', function ($q) use ($roleName) {
+                $q->where('nombre', $roleName);
+            })
+            ->get();
+        }
+
+        return view('director.instituciones.show')->with(['institucion' => $institucion, 'responsables' => $posiblesResponsables]);
     }
 
     /**
@@ -61,9 +107,35 @@ class InstitucionController extends Controller
      * @param  \App\Institucion  $institucion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Institucion $institucion)
+    public function edit($id)
     {
-        
+        $roleName = "Tutor Institucional";
+
+        $institucion = Institucion::where('id', $id)->first();
+
+        if(isset($institucion->responsable))
+        {
+            // Tiene responsable
+            $responsablesActuales = Institucion::where('responsable_id', '<>', $institucion->responsable->id)
+            ->select('responsable_id')->get()->toArray();
+
+            $posiblesResponsables = User::whereNotIn('id', $responsablesActuales)->whereHas('roles', function ($q) use ($roleName) {
+                $q->where('nombre', $roleName);
+            })
+            ->get();
+        }
+        else
+        {
+            // No tiene responsable
+            $responsablesActuales = Institucion::whereNotNull('responsable_id')->select('responsable_id')->get()->toArray();
+            
+            $posiblesResponsables = User::whereNotIn('id', $responsablesActuales)->whereHas('roles', function ($q) use ($roleName) {
+                $q->where('nombre', $roleName);
+            })
+            ->get();
+        }
+
+        return view('director.instituciones.edit')->with(['institucion' => $institucion, 'responsables' => $posiblesResponsables]);
     }
 
     /**
@@ -73,9 +145,28 @@ class InstitucionController extends Controller
      * @param  \App\Institucion  $institucion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Institucion $institucion)
+    public function update(Request $request, $id)
     {
-        //
+        $institucion = Institucion::where('id', $id)->first();
+
+        if($request['denominacion'] != $institucion->denominacion)
+        {
+            $validatedData = $request->validate([
+                'denominacion' => ['required', 'string', 'unique:institucions'],
+            ]);
+        }
+        
+        $institucion->denominacion = $request['denominacion'];
+        $institucion->direccion = $request['direccion'];
+        $institucion->telefono = $request['telefono'];
+
+        $responsable = User::where('id', $request['responsable_id'])->first();
+
+        $institucion->responsable()->associate($responsable)->save();
+
+        $institucion->save();
+
+        return redirect('instituciones');
     }
 
     /**

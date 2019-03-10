@@ -47,9 +47,14 @@ class CursoacadController extends Controller
         if(isset($request['activo']))
         {
             $cursoacadActivo = Cursoacad::where('activo', 1)->first();
-            $cursoacadActivo->activo = 0;
+            
             $cursoacad->activo = 1;
-            $cursoacadActivo->save();
+
+            if(isset($cursoacadActivo))
+            {
+                $cursoacadActivo->activo = 0;
+                $cursoacadActivo->save();
+            }
         }
 
         $cursoacad->save();
@@ -90,20 +95,29 @@ class CursoacadController extends Controller
      */
     public function update(Request $request)
     {
-        $validatedData = $request->validate([
-            'denominacion' => ['required', 'string', 'unique:cursoacads'],
-        ]);
-        
         $cursoacad = Cursoacad::where('id', $request['id_curso'])->first();
+
+        if($cursoacad->denominacion != $request['denominacion'])
+        {
+            $validatedData = $request->validate([
+                'denominacion' => ['required', 'string', 'unique:cursoacads'],
+            ]);   
+        }
+
         $cursoacad->denominacion = $request['denominacion'];
         $cursoacad->activo = 0;
 
         if(isset($request['activo']))
         {
             $cursoacadActivo = Cursoacad::where('activo', 1)->first();
-            $cursoacadActivo->activo = 0;
+
             $cursoacad->activo = 1;
-            $cursoacadActivo->save();
+
+            if(isset($cursoacadActivo))
+            {
+                $cursoacadActivo->activo = 0;
+                $cursoacadActivo->save();
+            }
         }
 
         $cursoacad->save();

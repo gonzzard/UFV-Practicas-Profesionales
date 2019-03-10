@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col-md-10">
-        <h2>Nuevo usuario</h2>
+        <h2>Nuevo tutor académico</h2>
     </div>
     <div class="col-md-2"></div>
 </div>

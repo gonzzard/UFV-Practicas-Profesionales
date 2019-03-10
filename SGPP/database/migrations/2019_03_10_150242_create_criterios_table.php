@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePracticasTable extends Migration
+class CreateCriteriosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreatePracticasTable extends Migration
      */
     public function up()
     {
-        Schema::create('practicas', function (Blueprint $table) {
+        Schema::create('criterios', function (Blueprint $table) {
             $table->increments('id');
             $table->string('denominacion');
-            $table->integer('horasCredito');
-            $table->integer('creditos');
+            $table->integer('ponderacion');
+            $table->integer('practica_id')->unsigned();
+            $table->foreign('practica_id')->references('id')->on('practicas');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreatePracticasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('practicas');
+        Schema::dropIfExists('criterios');
     }
 }

@@ -12,6 +12,6 @@ class Institucion extends Model
 
     public function responsable()
     {
-        return $this->hasOne('App\User', 'responsable_id');
+        return $this->belongsTo('App\User');
     }
 }

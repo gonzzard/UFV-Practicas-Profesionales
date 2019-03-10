@@ -13,4 +13,12 @@ class Practica extends Model
     public function titulacion() {
         return $this->belongsTo('App\Titulacion');
     }
+
+    public function criterios() {
+        return $this->hasMany('App\Criterio');
+    }
+
+    public function asignaciones() {
+        return $this->hasMany('App\Asignacion');
+    }
 }

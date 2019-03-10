@@ -1,5 +1,7 @@
 @extends('layouts.app') 
-@section('content')
+@section('content') 
+
+@if (!Auth::guest() && Auth::user()->hasRole('Administrador'))
 
 <h2>Panel del administrador</h2>
 <hr>
@@ -65,7 +67,13 @@
     </div>
 </div>
 
-<br><br>
+@endif
+
+@if (!Auth::guest() && Auth::user()->hasRole('Administrador'))
+
+    @if (!Auth::guest() && Auth::user()->hasRole('Administrador'))
+        <br><br>
+    @endif
 
 <h2>Panel del director</h2>
 <hr>
@@ -77,7 +85,7 @@
                 <br>
                 <div class="card border-warning mx-sm-1 p-3 ufv-card">
                     <div class="card border-warning shadow text-warning p-4 my-card ufv-card">
-                        <span class="fa fa-certificate fa-2x" aria-hidden="true"></span>
+                        <span class="fas fa-chalkboard-teacher fa-2x" aria-hidden="true"></span>
                     </div>
                     <div class="texto-card">
                         <h4 class="text-center mt-3">Tutores</h4>
@@ -103,19 +111,19 @@
             </a>
         </div>
         <div class="col-md-3 ">
-            <a href="{{ url('user') }}" class=" link-card ">
-                        <br>
-                        <div class="card border-warning mx-sm-1 p-3 ufv-card">
-                            <div class="card border-warning shadow text-warning p-4 my-card ufv-card">
-                                <span class="fa fa-certificate fa-2x" aria-hidden="true"></span>
-                            </div>
-                            <div class="texto-card">
-                                <h4 class="text-center mt-3">Instituciones</h4>
-                                <h4 class="text-center mt-3">Colaboradoras</h4>
-                                <h1 class="text-center mt-2"></h1>
-                            </div>
-                        </div>
-                    </a>
+            <a href="{{ url('instituciones') }}" class=" link-card ">
+                <br>
+                <div class="card border-warning mx-sm-1 p-3 ufv-card">
+                    <div class="card border-warning shadow text-warning p-4 my-card ufv-card">
+                        <span class="fas fa-building fa-2x" aria-hidden="true"></span>
+                    </div>
+                    <div class="texto-card">
+                        <h4 class="text-center mt-3">Instituciones</h4>
+                        <h4 class="text-center mt-3">Colaboradoras</h4>
+                        <h1 class="text-center mt-2"></h1>
+                    </div>
+                </div>
+            </a>
         </div>
         <div class="col-md-3 ">
             <a href="{{ url('user') }}" class=" link-card ">
@@ -158,7 +166,9 @@
     </div>
 </div>
 
-<br><br>
+@endif
+
+@if (!Auth::guest() && Auth::user()->alumno)
 
 <h2>Panel del alumno</h2>
 <hr>
@@ -167,31 +177,31 @@
     <div class="row justify-content-center">
         <div class="col-md-3 ">
             <a href="{{ url('user') }}" class=" link-card ">
-                <br>
-                <div class="card border-warning mx-sm-1 p-3 ufv-card">
-                    <div class="card border-warning shadow text-warning p-4 my-card ufv-card">
-                        <span class="fa fa-certificate fa-2x" aria-hidden="true"></span>
+                    <br>
+                    <div class="card border-warning mx-sm-1 p-3 ufv-card">
+                        <div class="card border-warning shadow text-warning p-4 my-card ufv-card">
+                            <span class="fa fa-certificate fa-2x" aria-hidden="true"></span>
+                        </div>
+                        <div class="texto-card">
+                            <h4 class="text-center mt-3">Prácticas</h4>
+                            <h1 class="text-center mt-2"></h1>
+                        </div>
                     </div>
-                    <div class="texto-card">
-                        <h4 class="text-center mt-3">Prácticas</h4>
-                        <h1 class="text-center mt-2"></h1>
-                    </div>
-                </div>
-            </a>
+                </a>
         </div>
         <div class="col-md-3 ">
             <a href="{{ url('user') }}" class=" link-card ">
-                <br>
-                <div class="card border-warning mx-sm-1 p-3 ufv-card">
-                    <div class="card border-warning shadow text-warning p-4 my-card ufv-card">
-                        <span class="fa fa-certificate fa-2x" aria-hidden="true"></span>
+                    <br>
+                    <div class="card border-warning mx-sm-1 p-3 ufv-card">
+                        <div class="card border-warning shadow text-warning p-4 my-card ufv-card">
+                            <span class="fa fa-certificate fa-2x" aria-hidden="true"></span>
+                        </div>
+                        <div class="texto-card">
+                            <h4 class="text-center mt-3">Certificados</h4>
+                            <h1 class="text-center mt-2"></h1>
+                        </div>
                     </div>
-                    <div class="texto-card">
-                        <h4 class="text-center mt-3">Certificados</h4>
-                        <h1 class="text-center mt-2"></h1>
-                    </div>
-                </div>
-            </a>
+                </a>
         </div>
         <div class="col-md-3 ">
         </div>
@@ -200,7 +210,9 @@
     </div>
 </div>
 
-<br><br>
+@endif 
+
+@if (!Auth::guest() && Auth::user()->tutoresAcademicos)
 
 <h2>Panel del tutor académico</h2>
 <hr>
@@ -242,7 +254,9 @@
     </div>
 </div>
 
-<br><br>
+@endif 
+
+@if (!Auth::guest() && Auth::user()->tutoresInstitucionales)
 
 <h2>Panel del tutor institucional</h2>
 <hr>
@@ -283,4 +297,6 @@
         </div>
     </div>
 </div>
+
+@endif
 @endsection

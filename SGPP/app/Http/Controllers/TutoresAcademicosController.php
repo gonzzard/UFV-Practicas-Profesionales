@@ -76,7 +76,6 @@ class TutoresAcademicosController extends Controller
     public function show($id)
     {
         $user = User::where('id', $id)->with('roles')->get()->first();
-        $allRoles = Role::orderBy('nombre', 'asc')->get();
 
         return view('director.tutoresAcademicos.show')->with(['user' => $user]);
     }
@@ -130,8 +129,6 @@ class TutoresAcademicosController extends Controller
         $user->apellido2 = $request['apellido2'];
         $user->docIdentificacion = $request['docIdentificacion'];
         $user->save();
-
-        $user->roles()->sync($request->role);
 
         return redirect('tutoresAcademicos');
     }

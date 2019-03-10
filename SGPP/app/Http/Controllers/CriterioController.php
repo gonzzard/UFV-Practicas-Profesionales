@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Criterioevaluacion;
+use App\Criterio;
 use Illuminate\Http\Request;
 
-class CriterioevaluacionController extends Controller
+class CriterioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class CriterioevaluacionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Criterioevaluacion  $criterioevaluacion
+     * @param  \App\Criterio  $criterio
      * @return \Illuminate\Http\Response
      */
-    public function show(Criterioevaluacion $criterioevaluacion)
+    public function show(Criterio $criterio)
     {
         //
     }
@@ -52,10 +52,10 @@ class CriterioevaluacionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Criterioevaluacion  $criterioevaluacion
+     * @param  \App\Criterio  $criterio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Criterioevaluacion $criterioevaluacion)
+    public function edit(Criterio $criterio)
     {
         //
     }
@@ -64,10 +64,10 @@ class CriterioevaluacionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Criterioevaluacion  $criterioevaluacion
+     * @param  \App\Criterio  $criterio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Criterioevaluacion $criterioevaluacion)
+    public function update(Request $request, Criterio $criterio)
     {
         //
     }
@@ -75,10 +75,10 @@ class CriterioevaluacionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Criterioevaluacion  $criterioevaluacion
+     * @param  \App\Criterio  $criterio
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Criterioevaluacion $criterioevaluacion)
+    public function destroy(Criterio $criterio)
     {
         //
     }

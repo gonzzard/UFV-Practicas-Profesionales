@@ -78,7 +78,6 @@ class TutoresInstitucionalesController extends Controller
     public function show($id)
     {
         $user = User::where('id', $id)->with('roles')->get()->first();
-        $allRoles = Role::orderBy('nombre', 'asc')->get();
 
         return view('director.tutoresInstitucionales.show')->with(['user' => $user]);
     }

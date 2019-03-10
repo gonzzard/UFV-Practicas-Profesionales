@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePracticasTable extends Migration
+class CreateEstadoAsignacionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class CreatePracticasTable extends Migration
      */
     public function up()
     {
-        Schema::create('practicas', function (Blueprint $table) {
+        Schema::create('estadoasignacions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('denominacion');
-            $table->integer('horasCredito');
-            $table->integer('creditos');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreatePracticasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('practicas');
+        Schema::dropIfExists('estadoasignacions');
     }
 }

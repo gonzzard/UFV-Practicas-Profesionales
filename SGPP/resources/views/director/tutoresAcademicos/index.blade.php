@@ -24,15 +24,15 @@
                     <table class="table table-striped inline-table">
                         <thead>
                             <tr>
-                                <th scope="col"><i class="far fa-user"></i> Nombre</th>
-                                <th scope="col"><i class="far fa-envelope"></i> Email</th>
+                                <th scope="col"><i class="fas fa-user"></i> Nombre</th>
+                                <th scope="col"><i class="fas fa-envelope"></i> Email</th>
                                 <th scope="col"><i class="fas fa-unlock-alt"></i> Rol</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         @foreach ($users as $user)
                         <tr>
-                            <td scope="row"> {{ $user->name }} </td>
+                            <td scope="row"> {{ $user->apellido1 }} {{ $user->apellido2 }}, {{ $user->name }} </td>
                             <td scope="row"> {{ $user->email }} </td>
                             <td scope="row">
                                 @foreach ($user->roles as $role) {{ $role->nombre }} <br> @endforeach
@@ -45,8 +45,6 @@
                                                 class="fa fa-eye"></i></button>
                                         <button class="btn btn-info" type="button" title="Editar usuario" onclick="window.location='{{ route('tutoresAcademicos.edit', $user->id) }}'"><i
                                                 class="fa fa-edit"></i></button>
-                                        <button type="submit" class="btn btn-danger delete-user" title="Eliminar usuario" value="Submit"><i
-                                                class="fa fa-times"></i></button>
                                     </div>
                                 </form>
                             </td>
