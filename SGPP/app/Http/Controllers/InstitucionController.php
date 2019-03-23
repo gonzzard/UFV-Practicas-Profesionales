@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Institucion;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class InstitucionController extends Controller
 {
@@ -15,7 +16,13 @@ class InstitucionController extends Controller
      */
     public function index()
     {
-        $instituciones = Institucion::with('responsable')->orderBy('denominacion', 'DESC')->paginate(8);
+        $grados_dir = $this->GetIdsTitulacionesDirector(Auth::user()->id);
+
+        $instituciones = Institucion::with('responsable')
+        ->whereIn('titulacion_id', $grados_dir)
+        ->orderBy('denominacion', 'ASC')
+        ->paginate(8);
+        
         return view('director.instituciones.index')->with(['instituciones' => $instituciones]);
     }
 

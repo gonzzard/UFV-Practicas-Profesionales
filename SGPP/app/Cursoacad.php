@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cursoacad extends Model
 {
     protected $fillable = [
-        'denominacion', 'activo'
+        'denominacion', 'activo', 'titulacion_id'
     ];
 
     public function practicas() {

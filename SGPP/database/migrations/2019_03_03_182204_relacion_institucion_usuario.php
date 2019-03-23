@@ -29,6 +29,8 @@ class RelacionInstitucionUsuario extends Migration
         Schema::table('institucions', function (Blueprint $table) {
             $table->integer('responsable_id')->unsigned()->index()->nullable();
             $table->foreign('responsable_id')->references('id')->on('users');
+            $table->integer('titulacion_id')->unsigned()->index()->nullable();
+            $table->foreign('titulacion_id')->references('id')->on('titulacions');
         });
     }
 

@@ -4,10 +4,11 @@
     <h2>Datos usuario</h2>
     <hr>
     <div class="row justify-content-center">
+        
         <div class="col-md-2">
         </div>
         <div class="col-md-8">
-
+                <br>
             <div class="form-group row">
                 <label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
 

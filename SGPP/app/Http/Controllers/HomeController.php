@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Auth;
 use Hash;
 use Illuminate\Http\Request;
+use App\Asignacion;
+use App\EntradaSeguimiento;
 
 class HomeController extends Controller
 {
@@ -25,7 +27,28 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $curso = $this->CursoAcadActual();
+        $usuarioActual = Auth::user();
+
+        $asignaciones = Asignacion::with('practica', 'practica.titulacion', 'practica.cursoacad')
+        ->whereHas('practica', function ($query) use ($curso) {
+            $query->where('cursoacad_id', $curso->id);
+        })
+        ->with('alumno')
+        ->with('tutorAcad')
+        ->with('tutorInst')
+        ->with('estado')
+        ->with('entradasSeguimiento')
+        ->where('tutorInst_id', $usuarioActual->id)
+        ->select('id')
+        ->get()
+        ->ToArray();
+
+        $evidencias = EntradaSeguimiento::with('asignacion', 'asignacion.alumno', 'asignacion.practica', 'asignacion.estado',
+        'asignacion.practica.titulacion')
+        ->where('comprobado', false)->get();
+        
+        return view('home')->with(['evidenciasPendientes' => count($evidencias)]);
     }
 
     /**

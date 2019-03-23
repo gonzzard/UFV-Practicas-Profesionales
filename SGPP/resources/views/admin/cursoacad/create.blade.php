@@ -11,6 +11,7 @@
 <hr>
 
 <div class="container">
+    <br>
     <div class="row justify-content-center">
         <div class="col-md-4">
         </div>
@@ -34,7 +35,7 @@
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary">
-                            Registrar
+                            <i class="fas fa-save"></i> Guardar
                         </button>
                     </div>
                 </div>

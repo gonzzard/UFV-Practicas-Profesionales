@@ -49,8 +49,16 @@ class DirectorController extends Controller
     {
         $director = User::where('id', $request['profesor_id'])->first();
         $titulacion = Titulacion::where('id', $request['titulacion_id'])->first();
-        $titulacion->director()->associate($director)->save();
+        $titulacion->director()->associate($director);
         $titulacion->save();
+
+        $menciones = Titulacion::where('titulacion_principal_id', $titulacion->id)->get();
+
+        foreach ($menciones as $mencion) 
+        {
+            $mencion->director()->associate($director);
+            $mencion->save();
+        }
 
         return redirect('directores');
     }
@@ -100,9 +108,25 @@ class DirectorController extends Controller
             $titulacion_anterior->director()->dissociate()->save();
             $titulacion_anterior->save();
 
+            $mencionesAnt = Titulacion::where('titulacion_principal_id', $titulacion_anterior->id)->get();
+
+            foreach ($mencionesAnt as $mencion) 
+            {
+                $mencion->director()->dissociate()->save();
+                $mencion->save();
+            }
+
             $titulacion_nueva = Titulacion::where('id', $request['titulacion_id'])->first();
             $titulacion_nueva->director()->associate($director)->save();
             $titulacion_nueva->save();
+
+            $menciones = Titulacion::where('titulacion_principal_id', $titulacion_nueva->id)->get();
+
+            foreach ($menciones as $mencion) 
+            {
+                $mencion->director()->associate($director);
+                $mencion->save();
+            }
         }
 
         return redirect('directores');

@@ -11,11 +11,12 @@
 <hr>
 
 <div class="container">
+        <br>
     <div class="row justify-content-center">
         <div class="col-md-4">
         </div>
         <div class="col-md-4">
-            <form method="POST" action="{{ route('tutoresInstitucionales.update', $directorSeleccionado->id) }}">
+            <form method="POST" action="{{ route('directores.update', $directorSeleccionado->id) }}">
                 @csrf {{ method_field('PATCH') }}
                 <div class="form-group row">
                 <input type="hidden" id="tit_anterior" name="tit_anterior" value="{{$titulacionSeleccionada->id}}">

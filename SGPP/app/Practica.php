@@ -21,4 +21,8 @@ class Practica extends Model
     public function asignaciones() {
         return $this->hasMany('App\Asignacion');
     }
+
+    public function criterioEncuestaPracticas() {
+        return $this->hasMany('App\CriterioEncuestaPractica');
+    }
 }

@@ -20,6 +20,7 @@ class CreateEntradaSeguimientosTable extends Migration
             $table->string('urlEvidencias');
             $table->integer('horasRealizadas');
             $table->boolean('validado');
+            $table->boolean('comprobado');
             $table->integer('asignacion_id')->unsigned();
             $table->foreign('asignacion_id')->references('id')->on('asignacions');
             $table->timestamps();

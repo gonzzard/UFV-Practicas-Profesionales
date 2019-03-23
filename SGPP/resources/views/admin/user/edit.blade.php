@@ -13,6 +13,7 @@
 <br>
 
 <div class="container">
+    <br>
     <div class="row justify-content-center">
         <div class="col-md-2">
         </div>
@@ -61,7 +62,7 @@
 
                     <div class="col-md-6">
                         <input id="docIdentificacion" type="text" class="form-control{{ $errors->has('docIdentificacion') ? ' is-invalid' : '' }}"
-                            name="docIdentificacion" value="{{ $user->docIdentificacion }}" required autofocus>                        @if ($errors->has('docIdentificacion'))
+                            name="docIdentificacion" value="{{ $user->docIdentificacion }}" required pattern="\d{7,25}" autofocus title="Solo números del documento de identificación.">                        @if ($errors->has('docIdentificacion'))
                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('docIdentificacion') }}</strong>
                                         </span> @endif

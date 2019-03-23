@@ -32,7 +32,7 @@
                         </thead>
                         @foreach ($users as $user)
                         <tr>
-                            <td class="vertical-center" scope="row"> {{ $user->apellido1 }} {{ $user->apellido2 }}, {{ $user->name }}</td>
+                            <td class="vertical-center" scope="row"> @if($user->apellido1 != "") {{ $user->apellido1 }} @endif @if($user->apellido2 != "") {{ $user->apellido2 }}, @endif {{ $user->name }}</td>
                             <td class="vertical-center" scope="row"> {{ $user->email }} </td>
                             <td class="vertical-center" scope="row">
                                 @foreach ($user->roles as $role) {{ $role->nombre }} <br> @endforeach
@@ -45,8 +45,8 @@
                                                 class="fa fa-eye"></i></button>
                                         <button class="btn btn-info" type="button" title="Editar usuario" onclick="window.location='{{ route('user.edit', $user->id) }}'"><i
                                                 class="fa fa-edit"></i></button>
-                                        <button type="submit" class="btn btn-danger delete-user" title="Eliminar usuario" value="Submit"><i
-                                                class="fa fa-times"></i></button>
+                                        <!--<button type="submit" class="btn btn-danger delete-user" title="Eliminar usuario" value="Submit"><i
+                                                class="fa fa-times"></i></button> -->
                                     </div>
                                 </form>
                             </td>

@@ -28,7 +28,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function institution() {
+    public function institucion() {
         return $this->belongsTo('App\Institucion');
     }
 
@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function institucion_resp()
     {
-        return $this->hasOne('App\Institucion', 'responsable_d');
+        return $this->hasOne('App\Institucion', 'responsable_id');
     }
 
     public function asignaciones()

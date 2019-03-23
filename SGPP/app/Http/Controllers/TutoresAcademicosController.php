@@ -142,4 +142,19 @@ class TutoresAcademicosController extends Controller
     public function destroy($id)
     {
     }
+    
+    public function getUsuarioByDocumento(Request $request)
+    {
+        $curso = $this->CursoAcadActual();
+
+        $asignaciones = Asignacion::whereHas('practica', function ($query) use ($curso, $request) {
+            $query->where('cursoacad_id', $curso->id)
+            ->where('titulacion_id', $request->titulacion_id);
+        })
+        ->select('alumno_id')->get()->toArray();
+
+        $alumnos = User::whereIn('id', $asignaciones)->get();
+
+        return response()->json($alumnos);
+    }
 }

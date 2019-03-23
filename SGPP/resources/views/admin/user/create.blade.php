@@ -13,6 +13,7 @@
 <br>
 
 <div class="container">
+    <br>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <form method="POST" action="{{ route('user.store') }}">
@@ -59,7 +60,7 @@
 
                     <div class="col-md-6">
                         <input id="docIdentificacion" type="text" class="form-control{{ $errors->has('docIdentificacion') ? ' is-invalid' : '' }}"
-                            name="docIdentificacion" value="{{ old('docIdentificacion') }}" onblur="validaNif(this)" required
+                            name="docIdentificacion" value="{{ old('docIdentificacion') }}" onblur="validaNif(this)" required pattern="\d{7,25}" title="Solo números del documento de identificación."
                             autofocus maxlength="255"> @if ($errors->has('docIdentificacion'))
                         <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('docIdentificacion') }}</strong>

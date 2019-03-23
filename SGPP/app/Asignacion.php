@@ -18,12 +18,12 @@ class Asignacion extends Model
 
     public function tutorAcad()
     {
-        return $this->belongsTo("App\User");
+        return $this->belongsTo("App\User", "tutorAcad_id");
     }
 
     public function tutorInst()
     {
-        return $this->belongsTo("App\User");
+        return $this->belongsTo("App\User", "tutorInst_id");
     }
 
     public function estado()
@@ -48,6 +48,11 @@ class Asignacion extends Model
 
     public function entradasSeguimiento()
     {
-        $this->hasMany('App\EntradaSeguimiento');
+        return $this->hasMany('App\EntradaSeguimiento');
+    }
+
+    public function encuestaPracticas()
+    {
+        return $this->hasMany('App\EncuestaPracticas');
     }
 }

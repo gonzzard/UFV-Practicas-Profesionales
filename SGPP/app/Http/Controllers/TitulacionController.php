@@ -14,7 +14,7 @@ class TitulacionController extends Controller
      */
     public function index()
     {
-        $titulacion = Titulacion::orderBy('denominacion', 'DESC')->paginate(8);
+        $titulacion = Titulacion::with('titulacionPrincipal', 'titulacionPrincipal.director', 'director')->orderBy('denominacion', 'ASC')->paginate(8);
         return view('admin.titulaciones.index')->with(['titulacion' => $titulacion]);
     }
 
@@ -25,7 +25,7 @@ class TitulacionController extends Controller
      */
     public function create()
     {
-        $titulaciones = Titulacion::where('mencion', 0)->orderBy('denominacion', 'DESC')->get();
+        $titulaciones = Titulacion::where('mencion', 0)->orderBy('denominacion', 'ASC')->get();
         return view('admin.titulaciones.create')->with(['titulaciones' => $titulaciones]);
     }
 
@@ -45,6 +45,7 @@ class TitulacionController extends Controller
             $titulacion_principal = Titulacion::where('id', $request['titulacion_principal_id'])->first();
             $titulacion->titulacionPrincipal()->associate($titulacion_principal);
             $titulacion->mencion = 1;
+            $titulacion->director()->associate($titulacion_principal);
         }
 
         $titulacion->save();
@@ -100,6 +101,7 @@ class TitulacionController extends Controller
             $titulacion_principal = Titulacion::where('id', $request['titulacion_principal_id'])->first();
             $titulacion->titulacionPrincipal()->associate($titulacion_principal);
             $titulacion->mencion = 1;
+            $titulacion->director()->associate($titulacion_principal);
         }
 
         $titulacion->save();

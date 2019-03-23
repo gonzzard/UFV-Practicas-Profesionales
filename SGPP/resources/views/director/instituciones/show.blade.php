@@ -2,10 +2,9 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
         <h2>Datos institución</h2>
     </div>
-    <div class="col-md-2"></div>
 </div>
 
 <hr>
@@ -37,16 +36,21 @@
                                 </span> @endif
                 <br>
                 <label>Responsable</label>
-                <select class="form-control m-bot15" name="responsable_id" disabled>
-                        <option value="">Seleccione responsable</option>  
-                        @foreach($responsables as $resp)
-                            @if(isset($institucion->responsable) && $resp->id == $institucion->responsable->id)
-                                <option value="{{ $resp->id }}" selected>{{ $resp->apellido1 }} {{ $resp->apellido2 }}, {{ $resp->name }}</option>  
-                            @else
-                                <option value="{{ $resp->id }}">{{ $resp->apellido1 }} {{ $resp->apellido2 }}, {{ $resp->name }}</option>  
-                            @endif
-                        @endforeach 
-                </select>
+                @if($institucion->responsable != null)
+                    <select class="form-control m-bot15" name="responsable_id" disabled>
+                            <option value="">Seleccione responsable</option>  
+                            @foreach($responsables as $resp)
+                                @if(isset($institucion->responsable) && $resp->id == $institucion->responsable->id)
+                                    <option value="{{ $resp->id }}" selected>{{ $resp->apellido1 }} {{ $resp->apellido2 }}, {{ $resp->name }}</option>  
+                                
+                                    <option value="{{ $resp->id }}">{{ $resp->apellido1 }} {{ $resp->apellido2 }}, {{ $resp->name }}</option>  
+                                @endif
+                            @endforeach 
+                    </select>
+                @else
+                <br>
+                Sin responsable asignado.
+                @endif
         </div>
         <div class="col-md-4"></div>
     </div>

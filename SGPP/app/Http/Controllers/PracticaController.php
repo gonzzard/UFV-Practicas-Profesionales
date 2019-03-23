@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Practica;
+use App\Titulacion;
 use Illuminate\Http\Request;
 
 class PracticaController extends Controller
@@ -14,7 +16,23 @@ class PracticaController extends Controller
      */
     public function index()
     {
-        //
+        $director = Auth::user();
+
+        $cursoActual = $this->CursoAcadActual();
+        
+        $titulacionesDirector = Titulacion::where('director_id', $director->id)
+        ->select('id')->get()->toArray();
+
+        $practicas = Practica::with('cursoacad')
+        ->with('titulacion')
+        ->with('criterios')
+        ->with('asignaciones')
+        ->whereIn('titulacion_id', $titulacionesDirector)
+        ->where('cursoacad_id', $cursoActual->id)
+        ->orderBy('denominacion', 'ASC')
+        ->paginate(8);
+
+        return view('director.practicas.index')->with(['practicas' => $practicas]);
     }
 
     /**
@@ -24,7 +42,24 @@ class PracticaController extends Controller
      */
     public function create()
     {
-        //
+        $curso = $this->CursoAcadActual();
+
+        $titulacionConPracticas_id = Practica::where('cursoacad_id', $curso->id)
+        ->whereNotNull('titulacion_id')
+        ->select('titulacion_id')
+        ->get()->toArray();
+
+        $director = Auth::user();
+
+        $titulacionesDirector = Titulacion::where('director_id', $director->id)
+        ->select('id')->get()->toArray();
+
+        $titulaciones = Titulacion::whereNotIn('id', $titulacionConPracticas_id)
+        ->whereIn('id', $titulacionesDirector)
+        ->orderBy('denominacion', 'ASC')
+        ->get();
+
+        return view('director.practicas.create')->with(['titulaciones' => $titulaciones, 'curso' => $curso]);
     }
 
     /**
@@ -35,7 +70,20 @@ class PracticaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $curso = $this->CursoAcadActual();
+        $titulacion = Titulacion::where('id', $request->titulacion_id)->first();
+
+        $practica = new Practica();
+        $practica->denominacion = $request->denominacion;
+        $practica->creditos = $request->creditos;
+        $practica->horasCredito = $request->horasCredito;
+        $practica->horasTotales = $practica->horasCredito * $practica->creditos;
+        $practica->cursoacad()->associate($curso);
+        $practica->titulacion()->associate($titulacion);
+
+        $practica->save();
+
+        return redirect('practicas');
     }
 
     /**
@@ -44,9 +92,11 @@ class PracticaController extends Controller
      * @param  \App\Practica  $practica
      * @return \Illuminate\Http\Response
      */
-    public function show(Practica $practica)
+    public function show($id)
     {
-        //
+        $practica = Practica::with('titulacion', 'cursoacad', 'titulacion.titulacionPrincipal')->where('id', $id)->first();
+
+        return view('director.practicas.show')->with(['practica' => $practica]);
     }
 
     /**
@@ -55,9 +105,11 @@ class PracticaController extends Controller
      * @param  \App\Practica  $practica
      * @return \Illuminate\Http\Response
      */
-    public function edit(Practica $practica)
+    public function edit($id)
     {
-        //
+        $practica = Practica::with('titulacion', 'cursoacad', 'titulacion.titulacionPrincipal')->where('id', $id)->first();
+
+        return view('director.practicas.edit')->with(['practica' => $practica]);
     }
 
     /**
@@ -67,9 +119,15 @@ class PracticaController extends Controller
      * @param  \App\Practica  $practica
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Practica $practica)
+    public function update($id, Request $request)
     {
-        //
+        $practica = Practica::where('id', $id)->first();
+
+        $practica->denominacion = $request->denominacion;
+
+        $practica->save();
+
+        return redirect('practicas');
     }
 
     /**

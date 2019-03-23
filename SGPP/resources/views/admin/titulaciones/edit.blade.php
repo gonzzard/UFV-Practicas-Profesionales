@@ -2,19 +2,23 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-10">
-        <h2>Editar titulación</h2>
+    <div class="col-md-12">
+        @if($titulacion->mencion == 1)
+            <h2>Editar mención</h2>
+        @else
+            <h2>Editar titulación</h2> 
+        @endif
     </div>
-    <div class="col-md-2"></div>
 </div>
 
 <hr>
 
 <div class="container">
+        <br>
     <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-3">
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <form method="POST" action="{{ route('titulaciones.update', $titulacion->id) }}">
                     @csrf {{ method_field('PATCH') }}
                 <div class="form-group row">
@@ -38,13 +42,13 @@
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary">
-                            Guardar
+                            <i class="fa fa-save"></i> Guardar
                         </button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
         </div>
     </div>
 @endsection

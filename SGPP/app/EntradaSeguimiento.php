@@ -8,6 +8,6 @@ class EntradaSeguimiento extends Model
 {
     public function asignacion()
     {
-        $this->belongsTo('App\Asignacion');
+        return $this->belongsTo('App\Asignacion');
     }
 }

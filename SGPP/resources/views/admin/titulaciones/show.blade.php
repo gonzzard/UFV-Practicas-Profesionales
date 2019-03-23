@@ -2,11 +2,14 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-9">
-        <h2>Titulación: {{ $titulacion->denominacion }}</h2>
+        <div class="col-md-12">
+            @if($titulacion->mencion == 1)
+                <h2>Mención: {{ $titulacion->denominacion }}</h2>
+            @else
+                <h2>Titulación: {{ $titulacion->denominacion }}</h2>
+            @endif
+        </div>
     </div>
-    <div class="col-md-3"></div>
-</div>
 
 <hr>
 
@@ -24,9 +27,14 @@
             <div class="table-responsive">
                 <table class="table table-striped inline-table">
                     <thead>
+                        <tr>
+                            <th scope="col"><i class="fa fa-certificate"></i> Código</th>
+                            <th scope="col"><i class="fa fa-certificate"></i> Menciones</th>
+                        </tr>
                     </thead>
                     @foreach ($menciones as $tit)
                     <tr>
+                        <td scope="row" style="text-align:center;"> {{ $tit->id }}</td>
                         <td scope="row"> {{ $tit->denominacion }}</td>
                     </tr>
                     @endforeach

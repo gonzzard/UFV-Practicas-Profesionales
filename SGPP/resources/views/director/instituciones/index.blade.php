@@ -18,7 +18,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <br>
-
+            @if(count($instituciones) > 0)
             <div class="row">
                 <div class="table-responsive">
                     <table class="table table-striped inline-table">
@@ -26,22 +26,37 @@
                             <tr>
                                 <th scope="col"><i class="fas fa-building"></i> Institución</th>
                                 <th scope="col"><i class="fas fa-phone"></i> Teléfono</th>
-                                <th scope="col"><i class="fas fa-user"></i> Responsable</th>
+                                <th scope="col" style="text-align:center;"><i class="fas fa-user"></i> Responsable</th>
+                                <th scope="col" style="text-align:center;"><i class="fas fa-map-marked-alt"></i> Dirección</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         @foreach ($instituciones as $inst)
                         <tr>
-                            <td class="vertical-center" scope="row"> {{ $inst->denominacion }} </td>
-                            <td class="vertical-center" scope="row"> {{ $inst->telefono }} </td>
-                            <td class="vertical-center" scope="row"> @if(isset($inst->responsable)) {{ $inst->responsable->apellido1 }} {{ $inst->responsable->apellido2 }}, {{ $inst->responsable->name }} @endif</td>
+                            <td class="vertical-center" scope="row">{{ str_limit($inst->denominacion, $limit = 20, $end = '...') }}</td>
+                            <td class="vertical-center" scope="row">{{ $inst->telefono }}</td>
+
+                            @if(isset($inst->responsable))
+                                <td class="vertical-center" scope="row" style="text-align:center;">
+                                    {{ $inst->responsable->apellido1 }} {{ $inst->responsable->apellido2 }}, {{ $inst->responsable->name }}
+                                </td>
+                                @else
+                                <td class="vertical-center" scope="row" style="text-align:center;">
+                                    -
+                                </td>
+                            @endif
+
+                            <td class="vertical-center" scope="row" style="text-align:center;">
+                                    {{ str_limit($inst->direccion, $limit = 20, $end = '...') }}
+                            </td>
+
                             <td class="vertical-center" scope="row">
                                 <form method="POST" action='{{ route('instituciones.show', $inst->id) }}' onsubmit="return confirm('Confirmar eliminación del usuario');">
                                     {{ csrf_field() }} {{ method_field('DELETE') }}
                                     <div class="btn-group btn-group-justified">
-                                        <button class="btn btn-info" type="button" title="Editar usuario" onclick="window.location='{{ route('instituciones.show', $inst->id) }}'"><i
+                                        <button class="btn btn-info" type="button" title="Ver institución" onclick="window.location='{{ route('instituciones.show', $inst->id) }}'"><i
                                                 class="fa fa-eye"></i></button>
-                                        <button class="btn btn-info" type="button" title="Editar usuario" onclick="window.location='{{ route('instituciones.edit', $inst->id) }}'"><i
+                                        <button class="btn btn-info" type="button" title="Editar institución" onclick="window.location='{{ route('instituciones.edit', $inst->id) }}'"><i
                                                 class="fa fa-edit"></i></button>
                                     </div>
                                 </form>
@@ -54,6 +69,9 @@
                     </div>
                 </div>
             </div>
+            @else
+            <div style="text-align:center">No hay instituciones.</div>
+            @endif
         </div>
     </div>
 </div>

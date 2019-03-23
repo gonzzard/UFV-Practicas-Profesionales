@@ -77,3 +77,9 @@ hr {
 .vertical-center{
     vertical-align: middle !important;
 }
+
+.rebosar{
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis  !important;
+}

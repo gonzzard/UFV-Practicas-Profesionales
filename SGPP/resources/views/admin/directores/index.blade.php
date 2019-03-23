@@ -25,14 +25,14 @@
                         <table class="table table-striped inline-table">
                             <thead>
                                 <tr>
-                                    <th scope="col"><i class="fa fa-user"></i> Profesor</th>
-                                    <th scope="col"><i class="fab fa-font-awesome-flag"></i> Institución</th>
+                                    <th scope="col"><i class="fas fa-chalkboard-teacher"></i> Director</th>
+                                    <th scope="col"><i class="fas fa-certificate"></i> Grado</th>
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
                             @foreach ($directores as $director)
                             <tr>
-                                <td class="vertical-center" scope="row"> {{ $director->apellido1 }} {{ $director->apellido2 }}, {{ $director->name }}</td>
+                                <td class="vertical-center" scope="row">{{ $director->apellido1 }} {{ $director->apellido2 }}, {{ $director->name }}</td>
                                 <td class="vertical-center" scope="row">{{ $director->titulacion->denominacion }}</td>
                                 <td class="vertical-center" scope="row">
                                     <form method="POST" action='{{ route('directores.show', $director->titulacion->id) }}' onsubmit="return confirm('Confirmar eliminación del director');">

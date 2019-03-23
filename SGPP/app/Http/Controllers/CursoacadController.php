@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Cursoacad;
 use Illuminate\Http\Request;
+use App\Rules\cursoAcademicoValido;
 
-class CursoacadController extends Controller
+class CursoAcadController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,6 +40,8 @@ class CursoacadController extends Controller
         $validatedData = $request->validate([
             'denominacion' => ['required', 'string', 'unique:cursoacads'],
         ]);
+
+        $this->validate($request, ['denominacion' => new cursoAcademicoValido]);
 
         $cursoacad = new Cursoacad();
         $cursoacad->denominacion = $request['denominacion'];
@@ -102,6 +105,8 @@ class CursoacadController extends Controller
             $validatedData = $request->validate([
                 'denominacion' => ['required', 'string', 'unique:cursoacads'],
             ]);   
+
+            $this->validate($request, ['denominacion' => new cursoAcademicoValido]);
         }
 
         $cursoacad->denominacion = $request['denominacion'];

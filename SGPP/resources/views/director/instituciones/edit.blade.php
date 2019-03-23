@@ -2,10 +2,9 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-10">
-        <h2>Nueva institución</h2>
+    <div class="col-md-12">
+        <h2>Editar institución</h2>
     </div>
-    <div class="col-md-2"></div>
 </div>
 
 <hr>
@@ -49,6 +48,14 @@
                             @endif
                         @endforeach 
                 </select>
+                <br>
+                <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i> Guardar
+                                    </button>
+                        </div>
+                    </div>
             </form>
         </div>
         <div class="col-md-4"></div>

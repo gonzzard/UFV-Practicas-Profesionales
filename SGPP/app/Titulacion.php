@@ -24,4 +24,9 @@ class Titulacion extends Model
     {
         return $this->hasMany('App\Titulacion');
     }
+
+    public function instituciones()
+    {
+        return $this->hasMany('App\Institucion');
+    }
 }

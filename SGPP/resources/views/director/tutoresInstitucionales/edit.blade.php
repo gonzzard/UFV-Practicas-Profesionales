@@ -15,8 +15,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-                <form method="POST" action="{{ route('tutoresInstitucionales.update', $user->id) }}">
-                        @csrf {{ method_field('PATCH') }}
+            <form method="POST" action="{{ route('tutoresInstitucionales.update', $user->id) }}">
+                @csrf {{ method_field('PATCH') }}
 
                 <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
@@ -76,6 +76,22 @@
                         <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('email') }}</strong>
                                 </span> @endif
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Institución</label>
+                    <div class="col-md-6">
+                        <select class="form-control m-bot15" name="institucion_id" required disabled>
+                        <option value="">Seleccione titulación</option>  
+                        @foreach($instituciones as $inst)
+                            @if($inst->id == $user->institucion->id)
+                                <option value="{{ $inst->id }}" selected>{{ $inst->denominacion }}</option>  
+                            @else
+                                <option value="{{ $inst->id }}">{{ $inst->denominacion }}</option>  
+                            @endif
+                        @endforeach 
+                    </select>
                     </div>
                 </div>
 

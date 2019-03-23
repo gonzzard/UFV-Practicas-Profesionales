@@ -15,7 +15,7 @@ class CreateEvaluacionsTable extends Migration
     {
         Schema::create('evaluacions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('notaFinal');
+            $table->integer('nota');
             $table->string('observacion');
             $table->integer('asignacion_id')->unsigned();
             $table->foreign('asignacion_id')->references('id')->on('asignacions');

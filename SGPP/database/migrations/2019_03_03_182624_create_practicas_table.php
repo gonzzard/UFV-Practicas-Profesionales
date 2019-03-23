@@ -18,6 +18,7 @@ class CreatePracticasTable extends Migration
             $table->string('denominacion');
             $table->integer('horasCredito');
             $table->integer('creditos');
+            $table->integer('horasTotales');
             $table->timestamps();
         });
     }

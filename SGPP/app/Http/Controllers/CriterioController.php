@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Criterio;
+use App\Practica;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Redirect;
 
 class CriterioController extends Controller
 {
@@ -12,9 +14,21 @@ class CriterioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $criterios = Criterio::where('practica_id', $id)->paginate(8);
+
+        $cantidadPonderada = 0;
+
+        $practica = Practica::where('id', $id)->first();
+
+        foreach ($criterios as $criterio)
+        {
+            $cantidadPonderada += $criterio->ponderacion;
+        }
+
+        return view('director.criteriosEvaluacion.index')->with(['criterios' => $criterios, 'cantidadPonderada' => $cantidadPonderada,
+            'practica'=> $practica]);
     }
 
     /**
@@ -22,9 +36,22 @@ class CriterioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $criterios = Criterio::where('practica_id', $id)->get();
+
+        $cantidadPonderadaRestante = 100;
+
+        $practica = Practica::with("titulacion", "titulacion.titulacionPrincipal")
+        ->where('id', $id)->first();
+
+        foreach ($criterios as $criterio)
+        {
+            $cantidadPonderadaRestante -= $criterio->ponderacion;
+        }
+
+        return view('director.criteriosEvaluacion.create')->with(['criterios' => $criterios, 'cantidadPonderadaRestante' => $cantidadPonderadaRestante,
+        'practica'=> $practica]);
     }
 
     /**
@@ -35,7 +62,17 @@ class CriterioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $practica = Practica::where('id', $request->practica_id)->first();
+
+        $criterio = new Criterio();
+        $criterio->denominacion = $request->criterio;
+        $criterio->ponderacion = $request->ponderacion;
+
+        $criterio->practica()->associate($practica);
+        $criterio->save();
+
+        
+        return redirect(route('criteriosEvaluacion.index', $practica->id));
     }
 
     /**
@@ -44,9 +81,29 @@ class CriterioController extends Controller
      * @param  \App\Criterio  $criterio
      * @return \Illuminate\Http\Response
      */
-    public function show(Criterio $criterio)
+    public function show($id)
     {
-        //
+        $criterioEdit = Criterio::where('id', $id)
+        ->with('practica', 'practica.titulacion')
+        ->first();
+
+        $criterios = Criterio::where('practica_id', $criterioEdit->practica->id)->get();
+
+        $cantidadPonderadaRestante = 100;
+
+        $practica = Practica::with("titulacion", "titulacion.titulacionPrincipal")
+        ->where('id', $id)->first();
+
+        foreach ($criterios as $criterio)
+        {
+            $cantidadPonderadaRestante -= $criterio->ponderacion;
+        }
+
+        $ponderacionMax = $cantidadPonderadaRestante + $criterioEdit->ponderacion;
+
+        return view('director.criteriosEvaluacion.show')->with(['criterio' => $criterioEdit, 
+        'cantidadPonderadaRestante' => $cantidadPonderadaRestante,
+        'ponderacionMax' => $ponderacionMax]);
     }
 
     /**
@@ -55,9 +112,29 @@ class CriterioController extends Controller
      * @param  \App\Criterio  $criterio
      * @return \Illuminate\Http\Response
      */
-    public function edit(Criterio $criterio)
+    public function edit($id)
     {
-        //
+        $criterioEdit = Criterio::where('id', $id)
+        ->with('practica', 'practica.titulacion')
+        ->first();
+
+        $criterios = Criterio::where('practica_id', $criterioEdit->practica->id)->get();
+
+        $cantidadPonderadaRestante = 100;
+
+        $practica = Practica::with("titulacion", "titulacion.titulacionPrincipal")
+        ->where('id', $id)->first();
+
+        foreach ($criterios as $criterio)
+        {
+            $cantidadPonderadaRestante -= $criterio->ponderacion;
+        }
+
+        $ponderacionMax = $cantidadPonderadaRestante + $criterioEdit->ponderacion;
+
+        return view('director.criteriosEvaluacion.edit')->with(['criterio' => $criterioEdit, 
+        'cantidadPonderadaRestante' => $cantidadPonderadaRestante,
+        'ponderacionMax' => $ponderacionMax]);
     }
 
     /**
@@ -67,9 +144,16 @@ class CriterioController extends Controller
      * @param  \App\Criterio  $criterio
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Criterio $criterio)
+    public function update($id, Request $request)
     {
-        //
+        $criterio = Criterio::where('id', $id)->first();
+
+        $criterio->denominacion = $request->criterio;
+        $criterio->ponderacion = $request->ponderacion;
+
+        $criterio->save();
+
+        return redirect(route('criteriosEvaluacion.index', $criterio->id));
     }
 
     /**
