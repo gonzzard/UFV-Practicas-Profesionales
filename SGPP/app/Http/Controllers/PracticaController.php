@@ -27,6 +27,8 @@ class PracticaController extends Controller
         ->with('titulacion')
         ->with('criterios')
         ->with('asignaciones')
+        ->with('criterioEncuestaPracticas')
+        ->with('asignaciones')
         ->whereIn('titulacion_id', $titulacionesDirector)
         ->where('cursoacad_id', $cursoActual->id)
         ->orderBy('denominacion', 'ASC')

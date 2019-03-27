@@ -84,4 +84,48 @@ class EvidenciasPorValidarController extends Controller
 
         return redirect('evidenciasPorValidar');
     }
+
+    public function practicas()
+    {
+        $curso = $this->CursoAcadActual();
+        $usuarioActual = Auth::user();
+
+        $asignaciones = Asignacion::with('practica', 'practica.titulacion', 'practica.cursoacad')
+        ->whereHas('practica', function ($query) use ($curso) {
+            $query->where('cursoacad_id', $curso->id);
+        })
+        ->with('alumno')
+        ->with('tutorAcad')
+        ->with('tutorInst')
+        ->with('estado')
+        ->where('tutorInst_id', $usuarioActual->id)
+        ->paginate(8);
+
+        return view('tutorInst.practicas.index')->with(['asignaciones' => $asignaciones, 'curso' => $curso]);
+    }
+
+    public function evidenciasPractica($id)
+    {
+        $evidencias = EntradaSeguimiento::where('asignacion_id', $id)->paginate(8);
+        $asignacion = Asignacion::with('practica')->where('id', $id)->first();
+
+        return view('tutorInst.practicas.evidencias')->with(['evidencias' => $evidencias, 'asignacion' => $asignacion]);
+    }
+
+    public function evidenciaPractica($id)
+    {
+        $evidencia = EntradaSeguimiento::with('asignacion', 'asignacion.practica')->where('id', $id)->first();
+
+        return view('tutorInst.practicas.evidencia')->with(['evidencia' => $evidencia]);
+    }
+
+    public function show($id)
+    {
+        $asignacion = Asignacion::where('id', $id)
+        ->with('practica', 'practica.titulacion', 'alumno', 'tutorInst', 'tutorAcad', 
+            'estado', 'practica.cursoacad', 'tutorAcad.institucion')
+        ->first();
+
+        return view('tutorInst.practicas.show')->with(['asignacion' => $asignacion]);
+    }
 }

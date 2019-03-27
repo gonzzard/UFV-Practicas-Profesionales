@@ -20,7 +20,7 @@
                 @csrf
                 <div class="form-group row">
                     <label>Denominación</label>
-                    <input id="denominacion" type="text" class="form-control" name="denominacion" value="" required>
+                    <input  maxlength="255" id="denominacion" type="text" class="form-control" name="denominacion" value="" required>
                     <br><br>
                     <label>Titulación principal</label>
                     <select class="form-control m-bot15" name="titulacion_principal_id">

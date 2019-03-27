@@ -20,6 +20,19 @@
                 @csrf
 
                 <div class="form-group row">
+                    <label for="docIdentificacion" class="col-md-4 col-form-label text-md-right">Documento de identificación</label>
+
+                    <div class="col-md-6">
+                        <input id="docIdentificacion" type="text" class="form-control{{ $errors->has('docIdentificacion') ? ' is-invalid' : '' }}"
+                            title="Solo son válidos DNIs sin letra" pattern="[0-9]{8}" name="docIdentificacion" value="{{ old('docIdentificacion') }}" onblur="validaNif(this)"
+                            required title="El documento costa de 8 caracteres numéricos." autofocus maxlength="255">                        @if ($errors->has('docIdentificacion'))
+                        <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('docIdentificacion') }}</strong>
+                                </span> @endif
+                    </div>
+                </div>
+
+                <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
 
                     <div class="col-md-6">
@@ -56,24 +69,11 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="docIdentificacion" class="col-md-4 col-form-label text-md-right">Documento de identificación</label>
-
-                    <div class="col-md-6">
-                        <input id="docIdentificacion" type="text" class="form-control{{ $errors->has('docIdentificacion') ? ' is-invalid' : '' }}"
-                            name="docIdentificacion" value="{{ old('docIdentificacion') }}" onblur="validaNif(this)" required pattern="\d{7,25}" title="Solo números del documento de identificación."
-                            autofocus maxlength="255"> @if ($errors->has('docIdentificacion'))
-                        <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('docIdentificacion') }}</strong>
-                                </span> @endif
-                    </div>
-                </div>
-
-                <div class="form-group row">
                     <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 
                     <div class="col-md-6">
                         <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}"
-                            required maxlength="255"> @if ($errors->has('email'))
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required maxlength="255">                        @if ($errors->has('email'))
                         <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('email') }}</strong>
                                 </span> @endif
@@ -103,7 +103,7 @@
                 <div class="form-group row">
                     <label for="role" class="col-md-4 col-form-label text-md-right">Rol</label>
                     <div class="col-md-6">
-                        @foreach($roles as $role) 
+                        @foreach($roles as $role)
                         <div class="form-check">
                             <input type="checkbox" name="role[]" value="{{ $role['id'] }}">
                             <label class="form-check-label" for="role[]">{{ $role['nombre'] }}</label><br>
@@ -111,16 +111,26 @@
                         @endforeach
                     </div>
                 </div>
-
-                <div class="form-group row mb-0">
-                    <div class="col-md-6 offset-md-4" style="text-align:center;">
-                        <button type="submit" class="btn btn-primary">
+                <br>
+                <div class="form-group" style="text-align:center;">
+                    <button type="submit" class="btn btn-primary" id="checkBtn" name="checkBtn">
                                     <i class="fas fa-save"></i> Guardar
                                 </button>
-                    </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    jQuery(document).ready(function(){
+        $('#checkBtn').click(function() {
+          checked = $("input[type=checkbox]:checked").length;
+          if(!checked) {
+            alert("El usuario debe de tener al menos 1 rol asignado.");
+            return false;
+          }
+        });
+    });
+</script>
 @endsection

@@ -16,6 +16,20 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="form-group row">
+
+                <div class="form-group row">
+                    <label for="docIdentificacion" class="col-md-4 col-form-label text-md-right">Documento de identificación</label>
+
+                    <div class="col-md-6">
+                        <input id="docIdentificacion" type="text" class="form-control{{ $errors->has('docIdentificacion') ? ' is-invalid' : '' }}"
+                            name="docIdentificacion" value="{{ $user->docIdentificacion }}" onblur="validaNif(this)" required
+                            autofocus maxlength="255" disabled> @if ($errors->has('docIdentificacion'))
+                        <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('docIdentificacion') }}</strong>
+                                            </span> @endif
+                    </div>
+                </div>
+
                 <label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
 
                 <div class="col-md-6">
@@ -47,19 +61,6 @@
                         value="{{ $user->apellido2 }}" required autofocus maxlength="255" disabled> @if ($errors->has('apellido2'))
                     <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('apellido2') }}</strong>
-                                </span> @endif
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="docIdentificacion" class="col-md-4 col-form-label text-md-right">Documento de identificación</label>
-
-                <div class="col-md-6">
-                    <input id="docIdentificacion" type="text" class="form-control{{ $errors->has('docIdentificacion') ? ' is-invalid' : '' }}"
-                        name="docIdentificacion" value="{{ $user->docIdentificacion }}" onblur="validaNif(this)" required autofocus
-                        maxlength="255" disabled> @if ($errors->has('docIdentificacion'))
-                    <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('docIdentificacion') }}</strong>
                                 </span> @endif
                 </div>
             </div>

@@ -15,7 +15,7 @@ class CreateAsignacionsTable extends Migration
     {
         Schema::create('asignacions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('horasRealizadas');
+            $table->decimal('horasRealizadas');
             $table->integer('notaFinal');
             $table->integer('alumno_id')->unsigned();
             $table->foreign('alumno_id')->references('id')->on('users');

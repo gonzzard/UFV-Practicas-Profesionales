@@ -23,14 +23,14 @@
                     <input id="actividad" type="text" class="form-control" name="actividad" title="Actividad realizada" maxlength="140" required>
                     <br>
                     <label>URL evidencias</label>
-                    <textarea id="url" class="form-control" name="url" title="Dirección del repositorio con las evidencias" style="resize: none;" rows="5" required></textarea>
+                    <textarea maxlength="250" id="url" class="form-control" name="url" title="Dirección del repositorio con las evidencias" style="resize: none;" rows="5" required></textarea>
                     <br>
                     <label>Observación</label>
-                    <textarea id="observacion" class="form-control" name="observacion" title="Observación" style="resize: none;" rows="5" required></textarea>
+                    <textarea maxlength="250" id="observacion" class="form-control" name="observacion" title="Observación" style="resize: none;" rows="5" required></textarea>
                     <br>
                     <label>Horas</label>
                     <br>
-                    <input id="horas" type="number" name="horas" class="form-control" title="Horas realizadas" required style="width:100px;">
+                    <input id="horas" min="1" pattern="^\d*(\.\d{0,2})?$" step=".01" type="number" name="horas" class="form-control" title="Horas realizadas" required style="width:100px;">
                     <br>
                 </div>
                 <div class="form-group" style="text-align:center">

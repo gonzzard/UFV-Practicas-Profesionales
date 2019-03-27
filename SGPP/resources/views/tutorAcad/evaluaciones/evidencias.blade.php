@@ -2,11 +2,8 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-12">
         <h2>Porfolio: {{$asignacion->practica->denominacion}}</h2>
-    </div>
-    <div class="col-md-3">
-        <button class="btn btn-success float-right" type="button" onclick="window.location='{{ route('alumno.practicasAlumno.createEvidencia', $asignacion->id) }}'"><i class="fas fa-plus-circle"></i> Nueva evidencia</button>
     </div>
 </div>
 
@@ -52,7 +49,7 @@
                             </td>
                             <td class="vertical-center" scope="row">
                                 <div class="btn-group btn-group-justified">
-                                    <button class="btn btn-info" type="button" title="Evidencias" onclick="window.location='{{ route('alumno.practicasAlumno.showEvidencia', $asignacion->id) }}'"><i
+                                    <button class="btn btn-info" type="button" title="Evidencias" onclick="window.location='{{ route('tutorAcad.practicas.evidencia', $asignacion->id) }}'"><i
                                             class="fa fa-eye"></i></button>
                                 </div>
                             </td>

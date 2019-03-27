@@ -6,6 +6,7 @@ use Auth;
 use Hash;
 use Illuminate\Http\Request;
 use App\Asignacion;
+use App\Titulacion;
 use App\EntradaSeguimiento;
 
 class HomeController extends Controller
@@ -47,8 +48,31 @@ class HomeController extends Controller
         $evidencias = EntradaSeguimiento::with('asignacion', 'asignacion.alumno', 'asignacion.practica', 'asignacion.estado',
         'asignacion.practica.titulacion')
         ->where('comprobado', false)->get();
-        
-        return view('home')->with(['evidenciasPendientes' => count($evidencias)]);
+
+        $usuarioActual = Auth::user();
+        $director = Titulacion::where('mencion', 0)->where('director_id', $usuarioActual->id)->first();
+
+        $curso = $this->CursoAcadActual();
+        $usuarioActual = Auth::user();
+
+        $asignaciones = Asignacion::with('practica', 'practica.titulacion', 'practica.cursoacad')
+            ->whereHas('practica', function ($query) use ($curso) {
+                $query->where('cursoacad_id', $curso->id);
+            })
+            ->with('alumno')
+            ->with('tutorAcad')
+            ->with('tutorInst', 'tutorInst.institucion')
+            ->with('estado')
+            ->where('tutorAcad_id', $usuarioActual->id)
+            ->whereHas('estado', function ($query) {
+                $query->where('denominacion', 'TERMINADA');
+            })
+            ->where('notaFinal', -1)
+            ->where('horasRealizadas', '>=', 'practica.horasTotales')
+            ->get()->ToArray();
+
+        return view('home')->with(['evidenciasPendientes' => count($evidencias), 'director' => $director,
+            'evaluacionesPendientes' => count($asignaciones)]);
     }
 
     /**

@@ -40,7 +40,7 @@
                                     {{ $criterio->denominacion}}
                                 </td>
                                 <td class="vertical-center" scope="row"  style="float:right;">
-                                    <input id="criterio[{{$i}}][valor]" type="number" min="1" max="10" name="criterio[{{$i}}][valor]" @if(isset($notaTemp)) value="{{  $notaTemp }}" @endif class="form-control"
+                                    <input id="criterio[{{$i}}][valor]" type="number" min="1" max="10" step="0.1" pattern="^\d*(\.\d{0,2})?$" name="criterio[{{$i}}][valor]" @if(isset($notaTemp)) value="{{  $notaTemp }}" @endif class="form-control"
                                         required style="width: 100px; text-align:center" @if(isset($notaTemp)) disabled @endif></td>
                             </tr>
                             <?php $i += 1 ?> @endforeach

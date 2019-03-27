@@ -64,7 +64,6 @@ class TutoresAcademicosController extends Controller
         $user->roles()->attach(Role::where('nombre', 'Tutor Académico')->first());
         
         return redirect('tutoresAcademicos');
-
     }
 
     /**
@@ -145,16 +144,23 @@ class TutoresAcademicosController extends Controller
     
     public function getUsuarioByDocumento(Request $request)
     {
-        $curso = $this->CursoAcadActual();
+        $admins = User::with('roles')->whereHas('roles', function ($q) {
+            $q->where('nombre', 'Administrador');
+        })->select('id')->get()->toArray();
 
-        $asignaciones = Asignacion::whereHas('practica', function ($query) use ($curso, $request) {
-            $query->where('cursoacad_id', $curso->id)
-            ->where('titulacion_id', $request->titulacion_id);
-        })
-        ->select('alumno_id')->get()->toArray();
+        $alumnos = User::with('roles')->whereHas('roles', function ($q) {
+            $q->where('nombre', 'Alumno');
+        })->select('id')->get()->toArray();
 
-        $alumnos = User::whereIn('id', $asignaciones)->get();
+        $tutoresAcad = User::with('roles')->whereHas('roles', function ($q) {
+            $q->where('nombre', 'Tutor Académico');
+        })->select('id')->get()->toArray();
 
-        return response()->json($alumnos);
+        $posiblesTutores = User::where('docIdentificacion', $request->docIdentificacion)
+            ->whereNotIn('id', $alumnos)
+            ->whereNotIn('id', $tutoresAcad)
+            ->get();
+
+        return response()->json($posiblesTutores);
     }
 }

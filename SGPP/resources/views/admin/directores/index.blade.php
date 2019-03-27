@@ -20,7 +20,7 @@
                 <div class="col-sm-2">
                 </div>
                 <div class="col-sm-8">
-                    @if(count($directores) > 0)
+                    @if(count($grados) > 0)
                     <div class="table-responsive">
                         <table class="table table-striped inline-table">
                             <thead>
@@ -30,15 +30,16 @@
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
-                            @foreach ($directores as $director)
+                            @foreach ($grados as $grado)
                             <tr>
-                                <td class="vertical-center" scope="row">{{ $director->apellido1 }} {{ $director->apellido2 }}, {{ $director->name }}</td>
-                                <td class="vertical-center" scope="row">{{ $director->titulacion->denominacion }}</td>
+                                <td class="vertical-center" scope="row">{{ $grado->director->apellido1 }} {{ $grado->director->apellido2 }}, {{ $grado->director->name }}</td>
+                                <td class="vertical-center" scope="row">{{ $grado->director->titulacion->denominacion }}</td>
                                 <td class="vertical-center" scope="row">
-                                    <form method="POST" action='{{ route('directores.show', $director->titulacion->id) }}' onsubmit="return confirm('Confirmar eliminación del director');">
+                                    <form method="POST" action='{{ route('directores.show', $grado->director->titulacion->id) }}' onsubmit="return confirm('Confirmar eliminación del director');">
                                         {{ csrf_field() }} {{ method_field('DELETE') }}
+                                        <input type="hidden" value="{{ $grado->id }}" id="tit_anterior" name="tit_anterior">
                                         <div class="btn-group btn-group-justified">
-                                            <button class="btn btn-info" type="button" title="Editar usuario" onclick="window.location='{{ route('directores.edit', $director->id) }}'"><i
+                                            <button class="btn btn-info" type="button" title="Editar usuario" onclick="window.location='{{ route('directores.edit', $grado->director->id) }}'"><i
                                                         class="fa fa-edit"></i></button>
                                             <button type="submit" class="btn btn-danger delete-user" title="Eliminar usuario" value="Submit"><i
                                                         class="fa fa-times"></i></button>
@@ -49,7 +50,7 @@
                             @endforeach
                         </table>
                         <div class="text-center">
-                            {{ $directores->links() }}
+                            {{ $grados->links() }}
                         </div>
                     </div>
                     @else <div style="text-align:center">No hay directores de grado. </div>@endif

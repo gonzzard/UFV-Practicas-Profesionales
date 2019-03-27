@@ -31,8 +31,8 @@
                                 </span> @endif
                 <br>
                 <label>Teléfono</label>
-                <input id="telefono" type="text" class="form-control{{ $errors->has('telefono') ? ' is-invalid' : '' }}" name="telefono"
-                    value="{{ $institucion->telefono }}" required autofocus maxlength="255"> @if ($errors->has('telefono'))
+                <input id="telefono" type="numer" class="form-control{{ $errors->has('telefono') ? ' is-invalid' : '' }}" name="telefono"
+                    value="{{ $institucion->telefono }}" required autofocus maxlength="15"> @if ($errors->has('telefono'))
                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('telefono') }}</strong>
                                 </span> @endif

@@ -1,7 +1,5 @@
 @extends('layouts.app') 
-@section('content') 
-
-@if (!Auth::guest() && Auth::user()->hasRole('Administrador'))
+@section('content') @if (!Auth::guest() && Auth::user()->hasRole('Administrador'))
 
 <h2>Panel del administrador</h2>
 <hr>
@@ -67,13 +65,8 @@
     </div>
 </div>
 
-@endif
-
-@if (!Auth::guest() && Auth::user()->hasRole('Director de Grado'))
-
-    @if (!Auth::guest() && Auth::user()->hasRole('Administrador'))
-        <br><br>
-    @endif
+@endif @if (!Auth::guest() && Auth::user()->hasRole('Director de Grado') && isset($director)) @if (!Auth::guest() && Auth::user()->hasRole('Administrador'))
+<br><br> @endif
 
 <h2>Panel del director</h2>
 <hr>
@@ -81,7 +74,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-3 ">
-            <a href="{{ url('tutoresAcademicos') }}" class=" link-card "  title="Tutores académicos">
+            <a href="{{ url('tutoresAcademicos') }}" class=" link-card " title="Tutores académicos">
                 <br>
                 <div class="card border-warning mx-sm-1 p-3 ufv-card">
                     <div class="card border-warning shadow text-warning p-4 my-card ufv-card">
@@ -166,9 +159,11 @@
     </div>
 </div>
 
-@endif
+@endif @if (!Auth::guest() && Auth::user()->hasRole('Alumno'))
 
-@if (!Auth::guest() && Auth::user()->hasRole('Alumno'))
+@if (!Auth::guest() && (Auth::user()->hasRole('Administrador')
+|| Auth::user()->hasRole('Director de Grado')))
+<br><br> @endif
 
 <h2>Panel del alumno</h2>
 <hr>
@@ -210,9 +205,11 @@
     </div>
 </div>
 
-@endif 
+@endif @if (!Auth::guest() && Auth::user()->hasRole('Tutor Académico'))
 
-@if (!Auth::guest() && Auth::user()->hasRole('Tutor Académico'))
+@if (!Auth::guest() && (Auth::user()->hasRole('Alumno')
+|| Auth::user()->hasRole('Director de Grado')))
+<br><br> @endif
 
 <h2>Panel del tutor académico</h2>
 <hr>
@@ -220,7 +217,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-3 ">
-            <a href="{{ url('user') }}" class=" link-card ">
+            <a href="{{ url('tutorAcad/practicasTutorizadas') }}" class=" link-card ">
                 <br>
                 <div class="card border-warning mx-sm-1 p-3 ufv-card">
                     <div class="card border-warning shadow text-warning p-4 my-card ufv-card">
@@ -242,7 +239,11 @@
                     </div>
                     <div class="texto-card">
                         <h4 class="text-center mt-3">Evaluaciones</h4>
-                        <h4 class="text-center mt-3">-</h1>
+                        @if($evaluacionesPendientes == 0)
+                            <h4 class="text-center mt-3">-</h4>
+                        @else
+                            <h4 class="text-center mt-3 text-danger">{{$evaluacionesPendientes}}</h4>
+                        @endif
                     </div>
                 </div>
             </a>
@@ -254,14 +255,9 @@
     </div>
 </div>
 
-@endif 
-
-@if (!Auth::guest() && Auth::user()->hasRole('Tutor Institucional'))
-
-    @if (!Auth::guest() && (Auth::user()->hasRole('Administrador') || Auth::user()->hasRole('Director de Grado') 
-     ||   Auth::user()->hasRole('Tutor Académico')))
-            <br><br>
-    @endif
+@endif @if (!Auth::guest() && Auth::user()->hasRole('Tutor Institucional')) @if (!Auth::guest() && (Auth::user()->hasRole('Administrador')
+|| Auth::user()->hasRole('Director de Grado') || Auth::user()->hasRole('Tutor Académico')))
+<br><br> @endif
 
 <h2>Panel del tutor institucional</h2>
 <hr>
@@ -269,7 +265,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-3 ">
-            <a href="{{ url('user') }}" class=" link-card ">
+            <a href="{{ url('tutorInst/practicasTutorizadas') }}" class=" link-card ">
                 <br>
                 <div class="card border-warning mx-sm-1 p-3 ufv-card">
                     <div class="card border-warning shadow text-warning p-4 my-card ufv-card">

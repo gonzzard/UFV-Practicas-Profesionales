@@ -23,7 +23,7 @@
                     @csrf {{ method_field('PATCH') }}
                 <div class="form-group row">
                     <label>Denominación</label>
-                    <input id="denominacion" type="text" class="form-control" name="denominacion" value="{{ $titulacion->denominacion }}" required>
+                    <input  maxlength="255" id="denominacion" type="text" class="form-control" name="denominacion" value="{{ $titulacion->denominacion }}" required>
                     @if($titulacion->mencion == 1)
                         <br><br>
                         <label>Titulación principal</label>

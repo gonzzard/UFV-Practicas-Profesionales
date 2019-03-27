@@ -8,8 +8,10 @@ use App\Asignacion;
 use App\Titulacion;
 use App\Institucion;
 use App\EstadoAsignacion;
+use App\EntradaSeguimiento;
 use App\User;
 use Illuminate\Http\Request;
+use DB;
 
 class AsignacionController extends Controller
 {
@@ -45,6 +47,7 @@ class AsignacionController extends Controller
         $curso = $this->CursoAcadActual();
         $usuarioActual = Auth::user();
 
+        // Practicas cuya titulación tiene como director al usuario actual
         $practicas = Practica::with("titulacion")
         ->whereHas('titulacion', function($q) use ($usuarioActual){
             $q->where('director_id', $usuarioActual->id);
@@ -54,8 +57,31 @@ class AsignacionController extends Controller
         ->whereHas('criterioEncuestaPracticas')
         ->get();
 
-        $roleName = "Tutor Académico";
+        $idsPracticasCompletas = array();
 
+        foreach($practicas as $practica)
+        {
+            $ponderacionTemp = 0;
+
+            foreach($practica->criterios as $criterio)
+            {
+                $ponderacionTemp += (int)$criterio->ponderacion;
+            }
+
+            if($ponderacionTemp == 100)
+            {
+                array_push($idsPracticasCompletas, $practica->id);
+            }
+
+            $ponderacionTemp = 0;
+        }
+
+        $practicas = Practica::with("titulacion")
+        ->whereIn('id', $idsPracticasCompletas)
+        ->get();
+
+        // Posibles tutores académicos
+        $roleName = "Tutor Académico";
         $tutoresAcad = User::whereHas('roles', function ($q) use ($roleName) {
             $q->where('nombre', $roleName);
         })
@@ -101,9 +127,14 @@ class AsignacionController extends Controller
      * @param  \App\Asignacion  $asignacion
      * @return \Illuminate\Http\Response
      */
-    public function show(Asignacion $asignacion)
+    public function show($id)
     {
-        //
+        $asignacion = Asignacion::where('id', $id)
+        ->with('practica', 'practica.titulacion', 'alumno', 'tutorInst', 'tutorAcad', 
+            'estado', 'practica.cursoacad', 'tutorAcad.institucion')
+        ->first();
+
+        return view('director.asignaciones.show')->with(['asignacion' => $asignacion]);
     }
 
     /**
@@ -200,7 +231,17 @@ class AsignacionController extends Controller
         $practicas = Practica::with("titulacion")
             ->where('id', $request->practica_id)->first();
 
-        $instituciones = Institucion::where('titulacion_id', $practicas->titulacion_id)->get();
+        $titulacion = Titulacion::where('id', $practicas->titulacion_id)->first();
+
+        $idTitulacion = $titulacion->id;
+
+        if((int)$titulacion->mencion == 1)
+        {
+            $titulacionPrincipal = Titulacion::where('id', $titulacion->titulacion_principal_id)->first();
+            $idTitulacion = $titulacionPrincipal->id;
+        }
+
+        $instituciones = Institucion::where('titulacion_id', $idTitulacion)->get();
 
         return response()->json($instituciones);
     }
@@ -233,5 +274,36 @@ class AsignacionController extends Controller
         })->whereNotIn('id', $asignaciones)->get();
 
         return response()->json($alumnos);
+    }
+
+    public function evidencias($id)
+    {
+        $evidencias = EntradaSeguimiento::where('asignacion_id', $id)->paginate(8);
+        $asignacion = Asignacion::with('practica')->where('id', $id)->first();
+
+        return view('director.asignaciones.evidencias')->with(['evidencias' => $evidencias, 'asignacion' => $asignacion]);
+    }
+
+    public function evidencia($id)
+    {
+        $evidencia = EntradaSeguimiento::with('asignacion', 'asignacion.practica')->where('id', $id)->first();
+
+        return view('director.asignaciones.evidencia')->with(['evidencia' => $evidencia]);
+    }
+
+    public function valoracionInstitucion($id)
+    {
+        $asignacion = Asignacion::with('practica')->with('tutorInst', 'tutorInst.institucion', 'encuestaPracticas')->where('id', $id)->first();
+        $practica = Practica::with('criterioEncuestaPracticas')->where('id', $asignacion->practica->id)->first();
+
+        return view('director.asignaciones.valoracionInstitucion')->with(['practica' => $practica, 'asignacion' => $asignacion]);
+    }
+
+    public function valoracionPracticas($id)
+    {
+        $asignacion = Asignacion::with('practica')->with('tutorInst', 'tutorInst.institucion', 'evaluacions')->where('id', $id)->first();
+        $practica = Practica::with('criterios')->where('id', $asignacion->practica->id)->first();
+
+        return view('director.asignaciones.valoracionPractica')->with(['practica' => $practica, 'asignacion' => $asignacion]);
     }
 }

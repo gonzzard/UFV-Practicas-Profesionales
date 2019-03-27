@@ -18,7 +18,7 @@ class CreateEntradaSeguimientosTable extends Migration
             $table->string('actividad');
             $table->string('observacion');
             $table->string('urlEvidencias');
-            $table->integer('horasRealizadas');
+            $table->decimal('horasRealizadas');
             $table->boolean('validado');
             $table->boolean('comprobado');
             $table->integer('asignacion_id')->unsigned();

@@ -6,7 +6,8 @@
         <h2>Porfolio: {{$asignacion->practica->denominacion}}</h2>
     </div>
     <div class="col-md-3">
-        <button class="btn btn-success float-right" type="button" onclick="window.location='{{ route('alumno.practicasAlumno.createEvidencia', $asignacion->id) }}'"><i class="fas fa-plus-circle"></i> Nueva evidencia</button>
+        @if($asignacion->estado->denominacion == "EN PROCESO" )
+        <button class="btn btn-success float-right" type="button" onclick="window.location='{{ route('alumno.practicasAlumno.createEvidencia', $asignacion->id) }}'"><i class="fas fa-plus-circle"></i> Nueva evidencia</button>        @endif
     </div>
 </div>
 
@@ -17,7 +18,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
-                @if(count($evidencias) > 0)
+            @if(count($evidencias) > 0)
             <br>
 
             <div class="row">
@@ -38,21 +39,17 @@
                             <td class="vertical-center" scope="row" style="text-align:center;">{{ $evidencia->horasRealizadas}}</td>
                             <td class="vertical-center" scope="row" style="text-align:center;">
                                 @if($evidencia->validado == 1)
-                                    <span class="text-success"><i class="fas fa-check"></i></span>
-                                @else
-                                    <span class="text-danger"><i class="fas fa-times"></i></span>
-                                @endif
+                                <span class="text-success"><i class="fas fa-check"></i></span> @else
+                                <span class="text-danger"><i class="fas fa-times"></i></span> @endif
                             </td>
                             <td class="vertical-center" scope="row" style="text-align:center;">
                                 @if($evidencia->comprobado == 1)
-                                    <span class="text-success"><i class="fas fa-check"></i></span>
-                                @else
-                                    <span class="text-danger"><i class="fas fa-times"></i></span>
-                                @endif
+                                <span class="text-success"><i class="fas fa-check"></i></span> @else
+                                <span class="text-danger"><i class="fas fa-times"></i></span> @endif
                             </td>
                             <td class="vertical-center" scope="row">
                                 <div class="btn-group btn-group-justified">
-                                    <button class="btn btn-info" type="button" title="Evidencias" onclick="window.location='{{ route('alumno.practicasAlumno.showEvidencia', $asignacion->id) }}'"><i
+                                    <button class="btn btn-info" type="button" title="Evidencias" onclick="window.location='{{ route('alumno.practicasAlumno.showEvidencia', $evidencia->id) }}'"><i
                                             class="fa fa-eye"></i></button>
                                 </div>
                             </td>

@@ -34,6 +34,7 @@ Route::resource('instituciones', 'InstitucionController')->middleware(['auth', '
 Route::post('/tutoresInstitucionales/getUsuarioByDocumento', 'TutoresInstitucionalesController@getUsuarioByDocumento');
 Route::resource('tutoresInstitucionales', 'TutoresInstitucionalesController')->middleware(['auth', 'role:Director de Grado']);
 
+Route::post('/tutoresAcademicos/getUsuarioByDocumento', 'TutoresAcademicosController@getUsuarioByDocumento');
 Route::resource('tutoresAcademicos', 'TutoresAcademicosController')->middleware(['auth', 'role:Director de Grado']);
 
 Route::resource('practicas', 'PracticaController')->middleware(['auth', 'role:Director de Grado']);
@@ -42,9 +43,16 @@ Route::post('/asignaciones/getInstitucionesTitulacion', 'AsignacionController@ge
 Route::post('/asignaciones/getTutoresInstitucion', 'AsignacionController@getTutoresInstitucion');
 Route::post('/asignaciones/getTutorAcademico', 'AsignacionController@getTutorAcademico');
 Route::post('/asignaciones/getAlumnosPractica', 'AsignacionController@getAlumnosPractica');
-Route::resource('asignaciones', 'AsignacionController')->middleware(['auth', 'role:Director de Grado']);
+Route::resource('asignaciones', 'AsignacionController', ['except' => ['show']])->middleware(['auth', 'role:Director de Grado']);
+Route::get('asignaciones/{id}', 'AsignacionController@show')->name('director.asignaciones.show')->middleware(['auth', 'role:Director de Grado']);
 Route::get('asignaciones/cambioInst/{id}', 'AsignacionController@cambioInst')->name('director.asignaciones.cambioInst')->middleware(['auth', 'role:Director de Grado']);
 Route::post('asignaciones/cambioInst/{id}', 'AsignacionController@cambioInstStore')->name('director.asignaciones.cambioInstStore')->middleware(['auth', 'role:Director de Grado']);
+
+Route::get('valoracionInstitucion/{id}', 'AsignacionController@valoracionInstitucion')->name('director.asignaciones.valoracionInstitucion')->middleware(['auth', 'role:Director de Grado']);
+Route::get('valoracionPracticas/{id}', 'AsignacionController@valoracionPracticas')->name('director.asignaciones.valoracionPracticas')->middleware(['auth', 'role:Director de Grado']);
+
+Route::get('asignaciones/evidencias/{id}', 'AsignacionController@evidencias')->name('director.asignaciones.evidencias')->middleware(['auth', 'role:Director de Grado']);
+Route::get('asignaciones/evidencia/{id}', 'AsignacionController@evidencia')->name('director.asignaciones.evidencia')->middleware(['auth', 'role:Director de Grado']);
 
 Route::get('criteriosEvaluacion/{id}', ['as' => 'criteriosEvaluacion.index', 'uses' => 'CriterioController@index'])->middleware(['auth', 'role:Director de Grado']);
 Route::get('criteriosEvaluacion/{id}/create', ['as' => 'criteriosEvaluacion.create', 'uses' => 'CriterioController@create'])->middleware(['auth', 'role:Director de Grado']);
@@ -71,9 +79,18 @@ Route::get('/certificados/{id}', 'PracticasAlumnoController@descargaCertificado'
 Route::get('/evaluaciones', 'EvaluarPracticasController@evaluacionesPendientes')->name('tutorAcad.evaluaciones.index')->middleware(['auth', 'role:Tutor Académico']);
 Route::get('/evaluaciones/{id}', 'EvaluarPracticasController@evaluarPractica')->name('tutorAcad.evaluaciones.evaluarPractica')->middleware(['auth', 'role:Tutor Académico']);
 Route::post('/evaluaciones/{id}', 'EvaluarPracticasController@evaluacionStore')->name('tutorAcad.evaluaciones.evaluarPracticaStore')->middleware(['auth', 'role:Tutor Académico']);
-Route::get('/evidencias/{id}', 'EvaluarPracticasController@evidencias')->name('tutorAcad.evaluaciones.evidencias')->middleware(['auth', 'role:Tutor Académico']);
+Route::get('/evidenciasPractica/{id}', 'EvaluarPracticasController@evidencias')->name('tutorAcad.evaluaciones.evidencias')->middleware(['auth', 'role:Tutor Académico']);
+Route::get('/tutorAcad/practicasTutorizadas/', 'EvaluarPracticasController@practicas')->name('tutorAcad.practicas.index')->middleware(['auth', 'role:Tutor Académico']);
+Route::get('/tutorAcad/practicasTutorizadas/evidencias/{id}', 'EvaluarPracticasController@evidenciasPractica')->name('tutorAcad.practicas.evidencias')->middleware(['auth', 'role:Tutor Académico']);
+Route::get('/tutorAcad/practicasTutorizadas/evidencia/{id}', 'EvaluarPracticasController@evidenciaPractica')->name('tutorAcad.practicas.evidencia')->middleware(['auth', 'role:Tutor Académico']);
+Route::get('/tutorAcad/practicasTutorizadas/show/{id}', 'EvaluarPracticasController@show')->name('tutorAcad.practicas.show')->middleware(['auth', 'role:Tutor Académico']);
+Route::get('/tutorAcad/valoracionPracticas/{id}', 'EvaluarPracticasController@valoracionPracticas')->name('tutorAcad.practicas.valoracionPracticas')->middleware(['auth', 'role:Tutor Académico']);
 
 // TUTOR INST
 Route::get('/evidenciasPorValidar', 'EvidenciasPorValidarController@index')->name('tutorInst.practicasAlumno.evidencias')->middleware(['auth', 'role:Tutor Institucional']);
 Route::get('/evidenciasPorValidar/{id}', 'EvidenciasPorValidarController@evidencia')->name('tutorInst.practicasAlumno.evidencias')->middleware(['auth', 'role:Tutor Institucional']);
 Route::post('/evidenciasPorValidar/{id}', 'EvidenciasPorValidarController@validarEvidencia')->name('tutorInst.practicasAlumno.evidencias')->middleware(['auth', 'role:Tutor Institucional']);
+Route::get('/tutorInst/practicasTutorizadas/', 'EvidenciasPorValidarController@practicas')->name('tutorInst.practicas.index')->middleware(['auth', 'role:Tutor Institucional']);
+Route::get('/tutorInst/practicasTutorizadas/evidencias/{id}', 'EvidenciasPorValidarController@evidenciasPractica')->name('tutorInst.practicas.evidencias')->middleware(['auth', 'role:Tutor Institucional']);
+Route::get('/tutorInst/practicasTutorizadas/evidencia/{id}', 'EvidenciasPorValidarController@evidenciaPractica')->name('tutorInst.practicas.evidencia')->middleware(['auth', 'role:Tutor Institucional']);
+Route::get('/tutorInst/practicasTutorizadas/show/{id}', 'EvidenciasPorValidarController@show')->name('tutorInst.practicas.show')->middleware(['auth', 'role:Tutor Institucional']);

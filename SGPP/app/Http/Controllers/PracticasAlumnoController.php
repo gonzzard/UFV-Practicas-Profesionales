@@ -132,9 +132,9 @@ class PracticasAlumnoController extends Controller
 
         $notaText = "";
 
-        if ($asignacion->notaFinal >= 90) {
+        if ($asignacion->notaFinal >= 900) {
             $notaText = "SOBRESALIENTE";
-        } else if ($asignacion->notaFinal >= 70) {
+        } else if ($asignacion->notaFinal >= 700) {
             $notaText = "NOTABLE";
         } else {
             $notaText = "APROBADO";

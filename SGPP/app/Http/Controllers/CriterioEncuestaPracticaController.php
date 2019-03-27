@@ -16,7 +16,8 @@ class CriterioEncuestaPracticaController extends Controller
      */
     public function index($id)
     {
-        $criterios = CriterioEncuestaPractica::where('practica_id', $id)->paginate(8);
+        $criterios = CriterioEncuestaPractica::with('practica', 'practica.asignaciones')
+        ->where('practica_id', $id)->paginate(8);
 
         $practica = Practica::where('id', $id)->first();
 

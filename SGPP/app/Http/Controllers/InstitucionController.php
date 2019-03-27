@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Institucion;
+use App\Titulacion;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,9 +63,16 @@ class InstitucionController extends Controller
         $institucion->direccion = $request['direccion'];
         $institucion->telefono = $request['telefono'];
 
-        $responsable = User::where('id', $request['responsable_id'])->first();
+        if(isset($request['responsable_id']))
+        {
+            $responsable = User::where('id', $request['responsable_id'])->first();
+            $institucion->responsable()->associate($responsable);
+        }
 
-        $institucion->responsable()->associate($responsable)->save();
+        $usuarioActual = Auth::user();
+        $titulacion = Titulacion::where('mencion', 0)->where('director_id', $usuarioActual->id)->first();
+
+        $institucion->titulacion()->associate($titulacion);
 
         $institucion->save();
 

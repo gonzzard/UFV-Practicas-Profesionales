@@ -6,7 +6,7 @@
         <h2>Criterios evaluación: {{ str_limit($practica->denominacion, $limit = 35, $end = '...') }}</h2>
     </div>
     <div class="col-md-2">
-        <button class="btn btn-success float-right" title="Nuevo criterio de evaluación de prácticas" type="button" onclick="window.location='{{ route('criteriosEvaluacion.create', $practica->id) }}'"><i class="fas fa-plus-circle"></i> Nuevo criterio</button>
+        <button @if(count($practica->asignaciones)) disabled @endif class="btn btn-success float-right" title="Nuevo criterio de evaluación de prácticas" type="button" onclick="window.location='{{ route('criteriosEvaluacion.create', $practica->id) }}'"><i class="fas fa-plus-circle"></i> Nuevo criterio</button>
     </div>
 </div>
 
@@ -37,7 +37,7 @@
                                 <div class="btn-group btn-group-justified">
                                     <button class="btn btn-info" type="button" title="Ver criterio de evaluación de prácticas" onclick="window.location='{{ route('criteriosEvaluacion.show', $criterio->id) }}'"><i
                                                     class="fas fa-eye"></i></button>
-                                    <button class="btn btn-info" type="button" title="Editar criterio de evaluación de prácticas" onclick="window.location='{{ route('criteriosEvaluacion.edit', $criterio->id) }}'"><i
+                                    <button @if(count($criterio->practica->asignaciones)) disabled @endif class="btn btn-info" type="button" title="Editar criterio de evaluación de prácticas" onclick="window.location='{{ route('criteriosEvaluacion.edit', $criterio->id) }}'"><i
                                                     class="fas fa-edit"></i></button>
                                 </div>
                             </td>

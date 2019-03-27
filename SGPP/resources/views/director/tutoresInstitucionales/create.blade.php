@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col-md-10">
-        <h2>Nuevo tutor Institucional</h2>
+        <h2>Nuevo tutor institucional</h2>
     </div>
     <div class="col-md-2"></div>
 </div>
@@ -16,7 +16,22 @@
         <div class="col-md-8">
             <form method="POST" action="{{ route('tutoresInstitucionales.store') }}">
                 @csrf
+
                 <input type="hidden" name="buscado" id="buscado" value="no" />
+                <div class="form-group row">
+                    <label for="docIdentificacion" class="col-md-4 col-form-label text-md-right">Documento de identificación</label>
+
+                    <div class="col-md-6">
+                        <input id="docIdentificacion" type="text" class="form-control{{ $errors->has('docIdentificacion') ? ' is-invalid' : '' }}"
+                            name="docIdentificacion" value="{{ old('docIdentificacion') }}" required
+                            title="Solo son válidos DNIs sin letra" pattern="[0-9]{8}" autofocus maxlength="255"> @if ($errors->has('docIdentificacion'))
+                        <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('docIdentificacion') }}</strong>
+                                </span> @endif
+                    </div>
+                </div>
+
+                
                 <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
 
@@ -54,24 +69,11 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="docIdentificacion" class="col-md-4 col-form-label text-md-right">Documento de identificación</label>
-
-                    <div class="col-md-6">
-                        <input id="docIdentificacion" type="text" class="form-control{{ $errors->has('docIdentificacion') ? ' is-invalid' : '' }}"
-                            name="docIdentificacion" value="{{ old('docIdentificacion') }}" required
-                            autofocus maxlength="255"> @if ($errors->has('docIdentificacion'))
-                        <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('docIdentificacion') }}</strong>
-                                </span> @endif
-                    </div>
-                </div>
-
-                <div class="form-group row">
                     <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 
                     <div class="col-md-6">
                         <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}"
-                            required maxlength="255"> @if ($errors->has('email'))
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required maxlength="255"> @if ($errors->has('email'))
                         <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('email') }}</strong>
                                 </span> @endif
@@ -109,18 +111,16 @@
                     </select>
                 </div>
             </div>
-                <div class="form-group row mb-0">
-                    <div class="col-md-6 offset-md-4" style="text-align:center;">
-                        <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save"></i> Guardar
-                                </button>
-                    </div>
-                </div>
+            <br>
+            <div class="form-group" style="text-align:center;">
+                <button type="submit" class="btn btn-primary" id="checkBtn" name="checkBtn">
+                                <i class="fas fa-save"></i> Guardar
+                            </button>
+            </div>
             </form>
         </div>
     </div>
 </div>
-
 
 <script>
     jQuery(document).ready(function(){

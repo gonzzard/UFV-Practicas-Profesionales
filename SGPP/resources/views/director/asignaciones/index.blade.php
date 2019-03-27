@@ -32,23 +32,27 @@
                         </thead>
                         @foreach ($asignaciones as $asignacion)
                         <tr>
-                            <td class="vertical-center" scope="row">{{ str_limit(($asignacion->alumno->apellido1 . " " . $asignacion->alumno->apellido2) , $limit = 10, $end = '...') }}, {{ $asignacion->alumno->name}}</td>
-                            <td class="vertical-center" scope="row">{{ str_limit(($asignacion->tutorAcad->apellido1 . " " . $asignacion->tutorAcad->apellido2) , $limit = 10, $end = '...') }}, {{ $asignacion->tutorAcad->name}}</td>
-                            <td class="vertical-center" scope="row">{{ str_limit(($asignacion->tutorInst->apellido1 . " " . $asignacion->tutorInst->apellido2) , $limit = 10, $end = '...') }}, {{ $asignacion->tutorInst->name}}</td>
+                            <td class="vertical-center" scope="row">{{ str_limit(($asignacion->alumno->apellido1 . " " . $asignacion->alumno->apellido2) , $limit
+                                = 10, $end = '...') }}, {{ $asignacion->alumno->name}}</td>
+                            <td class="vertical-center" scope="row">{{ str_limit(($asignacion->tutorAcad->apellido1 . " " . $asignacion->tutorAcad->apellido2) ,
+                                $limit = 10, $end = '...') }}, {{ $asignacion->tutorAcad->name}}</td>
+                            <td class="vertical-center" scope="row">{{ str_limit(($asignacion->tutorInst->apellido1 . " " . $asignacion->tutorInst->apellido2) ,
+                                $limit = 10, $end = '...') }}, {{ $asignacion->tutorInst->name}}</td>
                             <td class="vertical-center" scope="row" style="text-align:center;">
                                 @if($asignacion->estado->denominacion == "EN PROCESO")
-                                    <span class="badge badge-pill badge-info">{{$asignacion->estado->denominacion}}</span>
-                                @elseif($asignacion->estado->denominacion == "TERMINADA")
-                                    <span class="badge badge-pill badge-success">{{$asignacion->estado->denominacion}}</span>
-                                @else
-                                    <span class="badge badge-pill badge-warning">{{$asignacion->estado->denominacion}}</span>
-                                @endif
+                                <span class="badge badge-pill badge-info">{{$asignacion->estado->denominacion}}</span> @elseif($asignacion->estado->denominacion
+                                == "TERMINADA")
+                                <span class="badge badge-pill badge-success">{{$asignacion->estado->denominacion}}</span>                                @else
+                                <span class="badge badge-pill badge-warning">{{$asignacion->estado->denominacion}}</span>                                @endif
                             </td>
                             <td class="vertical-center" scope="row">
                                 <div class="btn-group btn-group-justified">
-                                    <button class="btn btn-info" type="button" title="Editar usuario" onclick="window.location='{{ route('asignaciones.show', $asignacion->id) }}'"><i
+                                    <button class="btn btn-info" type="button" title="Ver asignación de prácticas" onclick="window.location='{{ route('director.asignaciones.show', $asignacion->id) }}'"><i
                                         class="fa fa-eye"></i></button>
-                                    <button class="btn btn-info" type="button" title="Cambio de institución" onclick="window.location='{{ route('director.asignaciones.cambioInst', $asignacion->id) }}'"  @if($asignacion->estado->denominacion == "TERMINADA" || $asignacion->estado->denominacion == "CAMBIO DE PRACTICAS") disabled @endif>
+                                    <button class="btn btn-info" type="button" title="Porfolio de evidencias"  onclick="window.location='{{ route('director.asignaciones.evidencias', $asignacion->id) }}'"><i
+                                            class="fa fa-folder-open"></i></button>
+                                    <button class="btn btn-info" type="button" title="Cambio de institución" onclick="window.location='{{ route('director.asignaciones.cambioInst', $asignacion->id) }}'"
+                                        @if($asignacion->estado->denominacion == "TERMINADA" || $asignacion->estado->denominacion == "CAMBIO DE PRACTICAS") disabled @endif>
                                         <i class="fa fa-exchange-alt"></i></button>
                                 </div>
                             </td>

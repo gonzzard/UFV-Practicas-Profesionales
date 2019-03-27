@@ -16,7 +16,8 @@ class CriterioController extends Controller
      */
     public function index($id)
     {
-        $criterios = Criterio::where('practica_id', $id)->paginate(8);
+        $criterios = Criterio::with('practica', 'practica.asignaciones')
+        ->where('practica_id', $id)->paginate(8);
 
         $cantidadPonderada = 0;
 

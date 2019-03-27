@@ -78,8 +78,9 @@ class TitulacionController extends Controller
     public function edit($id)
     {
         $titulacion = Titulacion::where('id', $id)->first();
-        $tit_principal = Titulacion::where('titulacion_principal_id', $id)->first();
+        $tit_principal = Titulacion::where('id', $titulacion->titulacion_principal_id)->first();
         $tit_principales = Titulacion::where('mencion', 0)->orderBy('denominacion', 'DESC')->get();
+
         return view('admin.titulaciones.edit')->with(['titulacion' => $titulacion, 'tit_principales' => $tit_principales,
             'tit_principal' => $tit_principal]);
     }

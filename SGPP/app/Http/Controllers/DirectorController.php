@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Titulacion;
+use App\User;
 use Illuminate\Http\Request;
 
 class DirectorController extends Controller
@@ -15,8 +15,12 @@ class DirectorController extends Controller
      */
     public function index()
     {
-        $directores = User::whereHas('titulacion')->paginate(8);
-        return view('admin.directores.index')->with(['directores' => $directores]);
+        $grados = Titulacion::whereHas('director')
+            ->with('director')
+            ->where('mencion', 0)
+            ->paginate(8);
+
+        return view('admin.directores.index')->with(['grados' => $grados]);
     }
 
     /**
@@ -33,8 +37,8 @@ class DirectorController extends Controller
         $usuarios = User::whereHas('roles', function ($q) use ($roleName) {
             $q->where('nombre', $roleName);
         })
-        ->doesntHave('titulacion')
-        ->get();
+            ->doesntHave('titulacion')
+            ->get();
 
         return view('admin.directores.create')->with(['titulaciones' => $titulaciones, 'usuarios' => $usuarios]);
     }
@@ -54,8 +58,7 @@ class DirectorController extends Controller
 
         $menciones = Titulacion::where('titulacion_principal_id', $titulacion->id)->get();
 
-        foreach ($menciones as $mencion) 
-        {
+        foreach ($menciones as $mencion) {
             $mencion->director()->associate($director);
             $mencion->save();
         }
@@ -80,16 +83,16 @@ class DirectorController extends Controller
      */
     public function edit($id)
     {
-        $titulaciones = Titulacion::where('mencion', 0)->where(function ($query)  use ($id) {
+        $titulaciones = Titulacion::where('mencion', 0)->where(function ($query) use ($id) {
             $query->whereNull('director_id')
-                  ->orWhere('director_id', $id);
+                ->orWhere('director_id', $id);
         })->get();
 
         $directorSeleccionado = User::where('id', $id)->first();
         $titulacionSeleccionada = Titulacion::where('director_id', $id)->first();
 
         return view('admin.directores.edit')->with(['titulaciones' => $titulaciones,
-            'directorSeleccionado' => $directorSeleccionado, 'titulacionSeleccionada' => $titulacionSeleccionada ]);
+            'directorSeleccionado' => $directorSeleccionado, 'titulacionSeleccionada' => $titulacionSeleccionada]);
     }
 
     /**
@@ -100,30 +103,30 @@ class DirectorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if($request['tit_anterior'] != $request['titulacion_id'])
-        {
+        // Distinto
+        if ($request['tit_anterior'] != $request['titulacion_id']) {
             $director = User::where('id', $id)->first();
 
+            // Eliminación de la antigua
             $titulacion_anterior = Titulacion::where('id', $request['tit_anterior'])->first();
             $titulacion_anterior->director()->dissociate()->save();
             $titulacion_anterior->save();
 
             $mencionesAnt = Titulacion::where('titulacion_principal_id', $titulacion_anterior->id)->get();
 
-            foreach ($mencionesAnt as $mencion) 
-            {
+            foreach ($mencionesAnt as $mencion) {
                 $mencion->director()->dissociate()->save();
                 $mencion->save();
             }
 
+            // Nueva
             $titulacion_nueva = Titulacion::where('id', $request['titulacion_id'])->first();
             $titulacion_nueva->director()->associate($director)->save();
             $titulacion_nueva->save();
 
             $menciones = Titulacion::where('titulacion_principal_id', $titulacion_nueva->id)->get();
 
-            foreach ($menciones as $mencion) 
-            {
+            foreach ($menciones as $mencion) {
                 $mencion->director()->associate($director);
                 $mencion->save();
             }
@@ -138,11 +141,19 @@ class DirectorController extends Controller
      * @param  id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        $titulacion_anterior = Titulacion::where('id', $id)->first();
+        $titulacion_anterior = Titulacion::where('id', $request['tit_anterior'])->first();
         $titulacion_anterior->director()->dissociate()->save();
         $titulacion_anterior->save();
+
+        $mencionesAnt = Titulacion::where('titulacion_principal_id', $titulacion_anterior->id)->get();
+
+        foreach ($mencionesAnt as $mencion) {
+            $mencion->director()->dissociate()->save();
+            $mencion->save();
+        }
+
         return redirect('directores');
     }
 }

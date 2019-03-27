@@ -197,7 +197,6 @@ class TutoresInstitucionalesController extends Controller
         })->select('id')->get()->toArray();
 
         $posiblesTutores = User::where('docIdentificacion', $request->docIdentificacion)
-            ->whereNotIn('id', $admins)
             ->whereNotIn('id', $alumnos)
             ->whereNotIn('id', $tutoresInst)
             ->get();

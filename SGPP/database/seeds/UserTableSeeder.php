@@ -23,7 +23,7 @@ class UserTableSeeder extends Seeder
         $usuario_admin->name = "Administrador";
         $usuario_admin->docIdentificacion = "54023837";
         $usuario_admin->email = "admin@f.es";
-        $usuario_admin->password = bcrypt('1234asdF!');
+        $usuario_admin->password = bcrypt('1234asdf');
         $usuario_admin->save();
         $usuario_admin->roles()->attach($role_admin);
 

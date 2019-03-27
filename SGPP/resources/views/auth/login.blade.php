@@ -307,7 +307,7 @@
       @csrf
 
       <input id="email" type="text" class="fadeIn second {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}"
-        required autofocus placeholder="Correo electrónico"> @if ($errors->has('email'))
+        required autofocus placeholder="DNI"> @if ($errors->has('email'))
       <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
              </span> @endif

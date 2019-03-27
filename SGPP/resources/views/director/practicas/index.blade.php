@@ -41,7 +41,7 @@
                                     <div class="btn-group btn-group-justified">
                                         <button class="btn btn-info" type="button" title="Ver práctica" onclick="window.location='{{ route('practicas.show', $practica->id) }}'"><i
                                                 class="fas fa-eye"></i></button>
-                                        <button class="btn btn-info" type="button" title="Editar práctica" onclick="window.location='{{ route('practicas.edit', $practica->id) }}'"><i
+                                        <button @if(count($practica->asignaciones) > 0) disabled @endif class="btn btn-info" type="button" title="Editar práctica" onclick="window.location='{{ route('practicas.edit', $practica->id) }}'"><i
                                                 class="fas fa-edit"></i></button>
                                         <button class="btn btn-info" type="button" title="Ver criterios de evaluación de prácticas" onclick="window.location='{{ route('criteriosEvaluacion.index', $practica->id) }}'"><i
                                                 class="fas fa-tasks"></i></button>
