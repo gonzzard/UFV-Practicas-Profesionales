@@ -8,8 +8,11 @@
 </div>
 
 <hr>
-
 <br>
+
+<a href="{{ url('evaluaciones') }}"class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</a>
 
 <div class="container">
     <form method="POST" action="{{ route('tutorAcad.evaluaciones.evaluarPracticaStore', $asignacion->id) }}">

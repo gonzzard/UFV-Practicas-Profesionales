@@ -8,8 +8,11 @@
 </div>
 
 <hr>
-
 <br>
+
+<button type="button"  onclick="window.location='{{ route('tutorAcad.practicas.show', $asignacion->id) }}'" class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</button>
 
 <div class="container">
     <form method="POST" action="{{ route('tutorAcad.evaluaciones.evaluarPracticaStore', $asignacion->id) }}">

@@ -33,8 +33,8 @@
                                 <td scope="row">{{ $evidencia->horasRealizadas}}</td>
                                 <td scope="row">{{ $evidencia->asignacion->practica->denominacion}}</td>
                                 <td scope="row">
-                                    <div class="btn-group btn-group-justified">
-                                        <button class="btn btn-info" type="button" title="Evidencias" onclick="window.location='{{ route('tutorInst.practicasAlumno.evidencias', $evidencia->id) }}'"><i
+                                    <div class="btn-group btn-group-justified" style="float:right;">
+                                        <button class="btn btn-info" type="button" title="Ver evidencia" onclick="window.location='{{ route('tutorInst.practicasAlumno.evidencias', $evidencia->id) }}'"><i
                                                 class="fa fa-eye"></i></button>
                                     </div>
                                 </td>

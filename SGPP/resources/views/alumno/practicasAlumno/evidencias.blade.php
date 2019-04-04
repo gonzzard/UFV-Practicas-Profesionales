@@ -7,13 +7,16 @@
     </div>
     <div class="col-md-3">
         @if($asignacion->estado->denominacion == "EN PROCESO" )
-        <button class="btn btn-success float-right" type="button" onclick="window.location='{{ route('alumno.practicasAlumno.createEvidencia', $asignacion->id) }}'"><i class="fas fa-plus-circle"></i> Nueva evidencia</button>        @endif
+        <button class="btn btn-success float-right" type="button" onclick="window.location='{{ route('alumno.practicasAlumno.createEvidencia', $asignacion->id) }}'" title="Nueva evidencia"><i class="fas fa-plus-circle"></i> Nueva evidencia</button>        @endif
     </div>
 </div>
 
 <hr>
-
 <br>
+
+<a href="{{ url('practicasAlumno') }}"class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</a>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -49,7 +52,7 @@
                             </td>
                             <td class="vertical-center" scope="row">
                                 <div class="btn-group btn-group-justified">
-                                    <button class="btn btn-info" type="button" title="Evidencias" onclick="window.location='{{ route('alumno.practicasAlumno.showEvidencia', $evidencia->id) }}'"><i
+                                    <button class="btn btn-info" type="button" title="Ver evidencia" onclick="window.location='{{ route('alumno.practicasAlumno.showEvidencia', $evidencia->id) }}'"><i
                                             class="fa fa-eye"></i></button>
                                 </div>
                             </td>

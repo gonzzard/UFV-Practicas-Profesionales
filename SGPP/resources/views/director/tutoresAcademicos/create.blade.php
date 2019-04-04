@@ -11,6 +11,9 @@
 <hr>
 
 <br>
+<a href="{{ url('tutoresAcademicos') }}"class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</a>
 
 <div class="container">
     <div class="row justify-content-center">

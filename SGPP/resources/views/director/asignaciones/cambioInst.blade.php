@@ -9,9 +9,13 @@
 </div>
 
 <hr>
+<br>
+
+<a href="{{ url('asignaciones') }}"class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</a>
 
 <div class="container">
-    <br>
     <div class="row justify-content-center">
         <div class="col-md-3">
         </div>

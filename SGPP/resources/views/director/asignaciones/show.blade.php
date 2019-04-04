@@ -9,6 +9,11 @@
 </div>
 
 <hr>
+<br>
+
+<a href="{{ url('asignaciones') }}"class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</a>
 
 <div class="container">
     <div class="row">
@@ -18,7 +23,7 @@
             <div class="row">
                 <div class="col-md-12" style="text-align: center;">
                     <h4>
-                        <br> @if($asignacion->estado->denominacion == "EN PROCESO")
+                        @if($asignacion->estado->denominacion == "EN PROCESO")
                         <span class="badge badge-pill badge-info">{{$asignacion->estado->denominacion}}</span> @elseif($asignacion->estado->denominacion
                         == "TERMINADA")
                         <span class="badge badge-pill badge-success">{{$asignacion->estado->denominacion}}</span> @else
@@ -70,9 +75,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="btn-group btn-group-justified" style="min-width: 100%" >
-                        <button class="btn btn-info" type="button" title="Ver asignación de prácticas" onclick="window.location='{{ route('director.asignaciones.valoracionInstitucion', $asignacion->id) }}'"><i
+                        <button class="btn btn-info" type="button" title="Evaluación de la institución" onclick="window.location='{{ route('director.asignaciones.valoracionInstitucion', $asignacion->id) }}'" @if($asignacion->notaFinal == -1) disabled @endif><i
                             class="fa fa-list"></i> Evaluación de la institución</button>
-                        <button class="btn btn-info" type="button" title="Porfolio de evidencias" onclick="window.location='{{ route('director.asignaciones.valoracionPracticas', $asignacion->id) }}'" @if($asignacion->notaFinal == -1) disabled @endif><i
+                        <button class="btn btn-info" type="button" title="Evaluación de la práctica" onclick="window.location='{{ route('director.asignaciones.valoracionPracticas', $asignacion->id) }}'" @if($asignacion->notaFinal == -1) disabled @endif><i
                             class="fa fa-list"></i> Evaluación de la práctica</button>
                     </div>
                 </div>

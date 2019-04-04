@@ -8,6 +8,11 @@
 </div>
 
 <hr>
+<br>
+
+<a href="{{ url('evidenciasPorValidar') }}"class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</a>
 
 <div class="container">
     <div class="row justify-content-center">

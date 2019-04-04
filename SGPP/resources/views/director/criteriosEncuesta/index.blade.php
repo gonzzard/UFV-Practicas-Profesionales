@@ -11,14 +11,16 @@
 </div>
 
 <hr>
-
 <br>
+
+<a href="{{ url('practicas') }}"class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</a>
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-5">
             @if(count($criterios) > 0)
-            <br>
             <div class="row">
                 <div class="table-responsive">
                     <table class="table table-striped inline-table">
@@ -32,7 +34,7 @@
                         <tr>
                             <td class="vertical-center" scope="row">{{ str_limit($criterio->denominacion , $limit = 40, $end = '...') }}</td>
                             <td class="vertical-center" scope="row">
-                                <div class="btn-group btn-group-justified">
+                                <div class="btn-group btn-group-justified" style="float:right">
                                     <button class="btn btn-info" type="button" title="Vers críterio evaluación institución" onclick="window.location='{{ route('criteriosEncuesta.show', $criterio->id) }}'"><i
                                                     class="fas fa-eye"></i></button>
                                     <button @if(count($criterio->practica->asignaciones)) disabled @endif class="btn btn-info" type="button" title="Editar críterio evaluación institución" onclick="window.location='{{ route('criteriosEncuesta.edit', $criterio->id) }}'"><i

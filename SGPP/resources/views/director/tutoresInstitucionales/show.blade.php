@@ -12,12 +12,15 @@
 
 <br>
 
+<a href="{{ url('tutoresInstitucionales') }}"class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</a>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="form-group row">
 
-                <div class="form-group row">
                     <label for="docIdentificacion" class="col-md-4 col-form-label text-md-right">Documento de identificación</label>
 
                     <div class="col-md-6">
@@ -29,6 +32,8 @@
                                             </span> @endif
                     </div>
                 </div>
+
+                <div class="form-group row">
 
                 <label for="name" class="col-md-4 col-form-label text-md-right">Nombre</label>
 

@@ -6,7 +6,7 @@
         <h2>Listado de cursos académicos</h2>
     </div>
     <div class="col-md-2">
-        <button class="btn btn-success float-right" type="button" onclick="window.location='{{ route('cursoacad.create') }}'"><i class="fas fa-plus-circle"></i> Nuevo curso</button>
+        <button class="btn btn-success float-right" type="button" onclick="window.location='{{ route('cursoacad.create') }}'"  title="Nuevo curso académico"><i class="fas fa-plus-circle"></i> Nuevo curso</button>
     </div>
 </div>
 
@@ -43,7 +43,7 @@
                                     <form method="POST" action='{{ route('cursoacad.show', $curso->id) }}' onsubmit="return confirm('Confirmar eliminación del usuario');">
                                         {{ csrf_field() }} {{ method_field('DELETE') }}
                                         <div class="btn-group btn-group-justified">
-                                            <button class="btn btn-info" type="button" title="Editar usuario" onclick="window.location='{{ route('cursoacad.edit', $curso->id) }}'"><i
+                                            <button class="btn btn-info" type="button" title="Editar curso Académico" onclick="window.location='{{ route('cursoacad.edit', $curso->id) }}'"><i
                                                 class="fa fa-edit"></i></button>
                                         </div>
                                     </form>

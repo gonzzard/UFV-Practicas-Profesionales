@@ -24,8 +24,7 @@
                         <thead>
                             <tr>
                                 <th scope="col"><i class="fas fa-user"></i> Alumno</th>
-                                <th scope="col"><i class="fas fa-chalkboard-teacher"></i> T. Acad</th>
-                                <th scope="col"><i class="fas fa-building"></i> T. Inst</th>
+                                <th scope="col"><i class="fas fa-briefcase"></i> Práctica</th>
                                 <th scope="col" style="text-align:center;"><i class="fas fa-flag"></i> Estado</th>
                                 <th scope="col"></th>
                             </tr>
@@ -34,10 +33,7 @@
                         <tr>
                             <td class="vertical-center" scope="row">{{ str_limit(($asignacion->alumno->apellido1 . " " . $asignacion->alumno->apellido2) , $limit
                                 = 10, $end = '...') }}, {{ $asignacion->alumno->name}}</td>
-                            <td class="vertical-center" scope="row">{{ str_limit(($asignacion->tutorAcad->apellido1 . " " . $asignacion->tutorAcad->apellido2) ,
-                                $limit = 10, $end = '...') }}, {{ $asignacion->tutorAcad->name}}</td>
-                            <td class="vertical-center" scope="row">{{ str_limit(($asignacion->tutorInst->apellido1 . " " . $asignacion->tutorInst->apellido2) ,
-                                $limit = 10, $end = '...') }}, {{ $asignacion->tutorInst->name}}</td>
+                            <td class="vertical-center" scope="row">{{ str_limit( $asignacion->practica->denominacion ,$limit = 40, $end = '...') }}</td>
                             <td class="vertical-center" scope="row" style="text-align:center;">
                                 @if($asignacion->estado->denominacion == "EN PROCESO")
                                 <span class="badge badge-pill badge-info">{{$asignacion->estado->denominacion}}</span> @elseif($asignacion->estado->denominacion
@@ -46,7 +42,7 @@
                                 <span class="badge badge-pill badge-warning">{{$asignacion->estado->denominacion}}</span>                                @endif
                             </td>
                             <td class="vertical-center" scope="row">
-                                <div class="btn-group btn-group-justified">
+                                <div class="btn-group btn-group-justified" style="float:right;">
                                     <button class="btn btn-info" type="button" title="Ver asignación de prácticas" onclick="window.location='{{ route('director.asignaciones.show', $asignacion->id) }}'"><i
                                         class="fa fa-eye"></i></button>
                                     <button class="btn btn-info" type="button" title="Porfolio de evidencias"  onclick="window.location='{{ route('director.asignaciones.evidencias', $asignacion->id) }}'"><i

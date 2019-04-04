@@ -9,6 +9,11 @@
 </div>
 
 <hr>
+<br>
+
+<a href="{{ url('practicas') }}"class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</a>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -33,14 +38,14 @@
                     <label>Nombre prácticas</label>
                     <input type="text" id="denominacion" class="form-control" name="denominacion" title="Nombre Prácticas" maxlength="255" required>
                     <br><br>
-                    <div class="row">
+                    <div class="row" style="min-width:100%">
                         <div class="col-md-4">
                             <label>Créditos</label>
-                            <input type="number" min="1" id="creditos" class="form-control" name="creditos" title="Créditos de la práctica" required>
+                            <input type="number" min="1" max="60" id="creditos" class="form-control" name="creditos" title="Créditos de la práctica" required style="min-width:100%">
                         </div>
                         <div class="col-md-4">
                             <label>Horas/Crédito</label>
-                            <input type="number" min="1" id="horasCredito" class="form-control" name="horasCredito" title="Horas/Crédito<" required>
+                            <input type="number" min="1" max="1000" id="horasCredito" class="form-control" name="horasCredito" title="Horas/Crédito" required  style="min-width:100%">
                         </div>
                         <div class="col-md-4">
                         </div>

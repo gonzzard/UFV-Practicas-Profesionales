@@ -8,9 +8,13 @@
 </div>
 
 <hr>
+<br>
+
+<button type="button"  onclick="window.location='{{ route('alumno.practicasAlumno.evidencias', $asignacion->id) }}'" class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</button>
 
 <div class="container">
-    <br>
     <div class="row justify-content-center">
         <div class="col-md-2">
         </div>
@@ -30,7 +34,7 @@
                     <br>
                     <label>Horas</label>
                     <br>
-                    <input id="horas" min="1" pattern="^\d*(\.\d{0,2})?$" step=".01" type="number" name="horas" class="form-control" title="Horas realizadas" required style="width:100px;">
+                    <input id="horas" min="1" max="100" pattern="^\d*(\.\d{0,2})?$" step=".01" type="number" name="horas" class="form-control" title="Horas realizadas" required style="width:100px;">
                     <br>
                 </div>
                 <div class="form-group" style="text-align:center">

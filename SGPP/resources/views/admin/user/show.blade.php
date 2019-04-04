@@ -1,14 +1,23 @@
 @extends('layouts.app') 
 @section('content')
 <div class="container">
-    <h2>Datos usuario</h2>
+    <div class="row">
+        <div class="col-md-10">
+            <h2>Datos usuario</h2>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    
     <hr>
+    <br>
+    <a href="{{ url('user') }}"class="btn btn-primary" >
+        <i class="fa fa-arrow-left"></i> Volver
+    </a>
     <div class="row justify-content-center">
 
         <div class="col-md-2">
         </div>
         <div class="col-md-8">
-            <br>
 
             <div class="form-group row">
                 <label for="docIdentificacion" class="col-md-4 col-form-label text-md-right">Documento</label>

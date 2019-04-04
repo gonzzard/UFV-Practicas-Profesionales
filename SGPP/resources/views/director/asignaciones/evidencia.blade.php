@@ -8,9 +8,13 @@
 </div>
 
 <hr>
+<br>
+
+<button type="button"  onclick="window.location='{{ route('director.asignaciones.evidencias', $evidencia->asignacion->id) }}'" class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</button>
 
 <div class="container">
-    <br>
     <div class="row justify-content-center">
         <div class="col-md-2">
         </div>

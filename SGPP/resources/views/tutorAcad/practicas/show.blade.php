@@ -9,6 +9,11 @@
 </div>
 
 <hr>
+<br>
+
+<a href="{{ url('tutorAcad/practicasTutorizadas') }}"class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</a>
 
 <div class="container">
     <div class="row">
@@ -18,7 +23,7 @@
             <div class="row">
                 <div class="col-md-12" style="text-align: center;">
                     <h4>
-                        <br> @if($asignacion->estado->denominacion == "EN PROCESO")
+                        @if($asignacion->estado->denominacion == "EN PROCESO")
                         <span class="badge badge-pill badge-info">{{$asignacion->estado->denominacion}}</span> @elseif($asignacion->estado->denominacion
                         == "TERMINADA")
                         <span class="badge badge-pill badge-success">{{$asignacion->estado->denominacion}}</span> @else

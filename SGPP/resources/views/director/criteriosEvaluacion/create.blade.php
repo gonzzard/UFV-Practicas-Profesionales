@@ -10,6 +10,10 @@
 <hr>
 <br>
 
+<button type="button"  onclick="window.location='{{ route('criteriosEvaluacion.index', $practica->id) }}'" class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</button>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-3"></div>

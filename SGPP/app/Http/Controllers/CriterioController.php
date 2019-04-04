@@ -147,14 +147,14 @@ class CriterioController extends Controller
      */
     public function update($id, Request $request)
     {
-        $criterio = Criterio::where('id', $id)->first();
+        $criterio = Criterio::with('practica')->where('id', $id)->first();
 
         $criterio->denominacion = $request->criterio;
         $criterio->ponderacion = $request->ponderacion;
 
         $criterio->save();
 
-        return redirect(route('criteriosEvaluacion.index', $criterio->id));
+        return redirect(route('criteriosEvaluacion.index', $criterio->practica->id));
     }
 
     /**

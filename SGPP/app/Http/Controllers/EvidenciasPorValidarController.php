@@ -48,6 +48,11 @@ class EvidenciasPorValidarController extends Controller
             'asignacion.practica.titulacion')
         ->first();
 
+        if($evidencia->comprobado == true)
+        {
+            return redirect('evidenciasPorValidar');
+        }
+
         return view('tutorInst.EvidenciasPendientes.validarEvidencia')->with(['evidencia' => $evidencia]);
     }
     

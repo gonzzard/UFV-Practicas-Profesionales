@@ -6,7 +6,7 @@
         <h2>Listado de usuarios</h2>
     </div>
     <div class="col-md-2">
-        <button class="btn btn-success float-right" type="button" onclick="window.location='{{ route('user.create') }}'"><i class="fas fa-plus-circle"></i> Nuevo usuario</button>
+        <button class="btn btn-success float-right" type="button" onclick="window.location='{{ route('user.create') }}'" title="Nuevo usuario"><i class="fas fa-plus-circle"></i> Nuevo usuario</button>
     </div>
 </div>
 
@@ -41,7 +41,7 @@
                                 <form method="POST" action='{{ route('user.show', $user->id) }}' onsubmit="return confirm('Confirmar eliminación del usuario');">
                                     {{ csrf_field() }} {{ method_field('DELETE') }}
                                     <div class="btn-group btn-group-justified">
-                                        <button class="btn btn-info" type="button" title="Editar usuario" onclick="window.location='{{ route('user.show', $user->id) }}'"><i
+                                        <button class="btn btn-info" type="button" title="Ver usuario" onclick="window.location='{{ route('user.show', $user->id) }}'"><i
                                                 class="fa fa-eye"></i></button>
                                         <button class="btn btn-info" type="button" title="Editar usuario" onclick="window.location='{{ route('user.edit', $user->id) }}'"><i
                                                 class="fa fa-edit"></i></button>

@@ -11,6 +11,10 @@
 
 <br>
 
+<a href="{{ url('asignaciones') }}"class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</a>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-10">
@@ -49,7 +53,7 @@
                             </td>
                             <td class="vertical-center" scope="row">
                                 <div class="btn-group btn-group-justified">
-                                    <button class="btn btn-info" type="button" title="Evidencias" onclick="window.location='{{ route('director.asignaciones.evidencia', $evidencia->id) }}'"><i
+                                    <button class="btn btn-info" type="button" title="Ver evidencia" onclick="window.location='{{ route('director.asignaciones.evidencia', $evidencia->id) }}'"><i
                                             class="fa fa-eye"></i></button>
                                 </div>
                             </td>

@@ -6,7 +6,7 @@
         <h2>Listado de directores</h2>
     </div>
     <div class="col-md-2">
-        <button class="btn btn-success float-right" type="button" onclick="window.location='{{ route('directores.create') }}'"><i class="fas fa-plus-circle"></i> Nuevo director</button>
+        <button class="btn btn-success float-right" type="button" onclick="window.location='{{ route('directores.create') }}'" title="Nuevo director"><i class="fas fa-plus-circle"></i> Nuevo director</button>
     </div>
 </div>
 
@@ -39,9 +39,9 @@
                                         {{ csrf_field() }} {{ method_field('DELETE') }}
                                         <input type="hidden" value="{{ $grado->id }}" id="tit_anterior" name="tit_anterior">
                                         <div class="btn-group btn-group-justified">
-                                            <button class="btn btn-info" type="button" title="Editar usuario" onclick="window.location='{{ route('directores.edit', $grado->director->id) }}'"><i
+                                            <button class="btn btn-info" type="button" title="Editar director" onclick="window.location='{{ route('directores.edit', $grado->director->id) }}'"><i
                                                         class="fa fa-edit"></i></button>
-                                            <button type="submit" class="btn btn-danger delete-user" title="Eliminar usuario" value="Submit"><i
+                                            <button type="submit" class="btn btn-danger delete-user" title="Eliminar director" value="Submit"><i
                                                         class="fa fa-times"></i></button>
                                         </div>
                                     </form>

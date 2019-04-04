@@ -102,7 +102,6 @@ class TitulacionController extends Controller
             $titulacion_principal = Titulacion::where('id', $request['titulacion_principal_id'])->first();
             $titulacion->titulacionPrincipal()->associate($titulacion_principal);
             $titulacion->mencion = 1;
-            $titulacion->director()->associate($titulacion_principal);
         }
 
         $titulacion->save();

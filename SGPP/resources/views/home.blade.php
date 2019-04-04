@@ -1,9 +1,15 @@
 @extends('layouts.app') 
 @section('content') @if (!Auth::guest() && Auth::user()->hasRole('Administrador'))
 
-<h2>Panel del administrador</h2>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Panel del administrador</h2>
+    </div>
+</div>
+
 <hr>
 <br>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-3 ">
@@ -68,9 +74,15 @@
 @endif @if (!Auth::guest() && Auth::user()->hasRole('Director de Grado') && isset($director)) @if (!Auth::guest() && Auth::user()->hasRole('Administrador'))
 <br><br> @endif
 
-<h2>Panel del director</h2>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Panel del director</h2>
+    </div>
+</div>
+
 <hr>
 <br>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-3 ">
@@ -165,9 +177,15 @@
 || Auth::user()->hasRole('Director de Grado')))
 <br><br> @endif
 
-<h2>Panel del alumno</h2>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Panel del alumno</h2>
+    </div>
+</div>
+
 <hr>
 <br>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-3 ">
@@ -211,9 +229,15 @@
 || Auth::user()->hasRole('Director de Grado')))
 <br><br> @endif
 
-<h2>Panel del tutor académico</h2>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Panel del tutor académico</h2>
+    </div>
+</div>
+
 <hr>
 <br>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-3 ">
@@ -259,9 +283,15 @@
 || Auth::user()->hasRole('Director de Grado') || Auth::user()->hasRole('Tutor Académico')))
 <br><br> @endif
 
-<h2>Panel del tutor institucional</h2>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Panel del tutor institucional</h2>
+    </div>
+</div>
+
 <hr>
 <br>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-3 ">

@@ -57,7 +57,7 @@ class EvaluarPracticasController extends Controller
 
         foreach ($request->criterio as $criterio) 
         {
-            $nota = (int)$criterio["valor"];
+            $nota = $criterio["valor"];
             $criterio = Criterio::where('id', $criterio["id"])->first();
             $evaluacion = new Evaluacion();
             $evaluacion->nota = $nota;

@@ -10,11 +10,15 @@
 <hr>
 <br>
 
+<button type="button"  onclick="window.location='{{ route('criteriosEvaluacion.index', $criterio->practica->id) }}'" class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</button>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <form method="POST" action="{{ route('criteriosEvaluacion.update', $criterio->practica->id) }}">
+            <form method="POST" action="{{ route('criteriosEvaluacion.update', $criterio->id) }}">
                     @csrf {{ method_field('PATCH') }}
                 <label>Denominación</label>
                 <input type="text" class="form-control" value="{{ $criterio->practica->denominacion}}" disabled>

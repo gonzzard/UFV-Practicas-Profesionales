@@ -42,9 +42,7 @@
                                 </td>
                             <td class="vertical-center" scope="row">
                                 <div class="btn-group btn-group-justified">
-                                    <button class="btn btn-info" type="button" title="Porfolio de evidencias" onclick="window.location='{{ route('tutorAcad.practicas.evidencias', $asignacion->id) }}'"><i
-                                            class="fa fa-folder-open"></i></button>
-                                    <button class="btn btn-info" type="button" title="Valorar intitución" onclick="window.location='{{ route('tutorAcad.evaluaciones.evaluarPractica', $asignacion->id) }}'"
+                                    <button class="btn btn-info" type="button" title="Evaluar práctica" onclick="window.location='{{ route('tutorAcad.evaluaciones.evaluarPractica', $asignacion->id) }}'"
                                         @if($asignacion->estado->denominacion == "EN PROCESO") disabled @endif><i
                                             class="fa fa-sign-out-alt"></i></button>
                                 </div>

@@ -12,8 +12,11 @@
 
 <br>
 
+<a href="{{ url('user') }}"class="btn btn-primary" >
+    <i class="fa fa-arrow-left"></i> Volver
+</a>
+
 <div class="container">
-    <br>
     <div class="row justify-content-center">
         <div class="col-md-2">
         </div>
