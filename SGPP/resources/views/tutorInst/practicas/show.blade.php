@@ -11,7 +11,7 @@
 <hr>
 <br>
 
-<a href="{{ url('tutorInst/practicasTutorizadas') }}"class="btn btn-primary" >
+<a href="{{ url('tutorInst/practicasTutorizadas') }}" class="btn btn-primary">
     <i class="fa fa-arrow-left"></i> Volver
 </a>
 
@@ -66,8 +66,15 @@
                     <input class="form-control" type="text" value="{{ $asignacion->practica->horasTotales }}" disabled style="text-align: center;">
                 </div>
                 <div class="col-md-4">
+                    <label>Nota tutor inst.</label> @if($asignacion->notaTutorInst < 0)
+                    <input class="form-control" type="text" value="-" disabled style="text-align: center;">                    @else
+                    <input class="form-control" type="text" value="{{ $asignacion->notaTutorInst }}" disabled style="text-align: center;">                    @endif
                 </div>
             </div>
+            <br>
+            <label>Observación tutor inst.</label>
+            <textarea id="observacionTutInst" class="form-control" name="observacionTutInst" title="Observación tutor institucional"
+                style="resize: none;" rows="5" required disabled>{{$asignacion->observacionTutInst}}</textarea>
         </div>
     </div>
     <div class="col-md-3">

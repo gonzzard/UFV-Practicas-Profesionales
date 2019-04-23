@@ -71,9 +71,13 @@
                 </div>
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
+                        @if($numCambios == 2)
+                            El alumno ya ha cambiado 2 veces de institución.
+                        @else
                         <button id="btn-submit" type="submit" class="btn btn-primary" disabled>
                                 <i class="fas fa-save"></i> Guardar
                         </button>
+                        @endif
                     </div>
                 </div>
             </form>

@@ -85,6 +85,7 @@ class AsignacionController extends Controller
         $tutoresAcad = User::whereHas('roles', function ($q) use ($roleName) {
             $q->where('nombre', $roleName);
         })
+        ->where('activo', true)
         ->get();
 
         return view('director.asignaciones.create')->with(['practicas' => $practicas, 'tutoresAcad' => $tutoresAcad,
@@ -110,6 +111,7 @@ class AsignacionController extends Controller
         $asignacion->horasRealizadas= 0;
         $asignacion->notaFinal = -1;
         $asignacion->observacion = "-";
+        $asignacion->observacionTutInst = "";
         $asignacion->practica()->associate($practica);
         $asignacion->alumno()->associate($alumno);
         $asignacion->tutorAcad()->associate($tutorAcad);
@@ -173,7 +175,7 @@ class AsignacionController extends Controller
 
     public function cambioInst($id)
     {
-        $asignacion = Asignacion::with('tutorAcad', 'tutorInst', 'alumno', 'estado', 'practica', 'practica.titulacion')
+        $asignacion = Asignacion::with('tutorAcad', 'tutorInst', 'alumno', 'estado', 'practica', 'practica.titulacion', 'asignacionAnterior')
         ->where('id', $id)
         ->first();
 
@@ -190,10 +192,26 @@ class AsignacionController extends Controller
             $q->where('nombre', $roleName);
         })->where('institucion_id', $asignacion->tutorInst->institucion->id)->get();
 
+        $numCambios = 0;
+
+        if(isset($asignacion->asignacionAnterior))
+        {
+            $numCambios++; 
+
+            $asignacionAnt = Asignacion::with('tutorAcad', 'tutorInst', 'alumno', 'estado', 'practica', 'practica.titulacion', 'asignacionAnterior')
+            ->where('id', $asignacion->asignacionAnterior->id)
+            ->first();
+
+            if(isset($asignacionAnt->asignacionAnterior))
+            {
+                $numCambios++;
+            }
+        }
+
         $instituciones = Institucion::where('titulacion_id', $asignacion->practica->titulacion->id)->get();
 
         return view('director.asignaciones.cambioInst')->with(['asignacion' => $asignacion, 'tutoresAcad' => $tutoresAcad,
-            'instituciones' => $instituciones, 'tutoresInst' => $tutoresInst]);
+            'instituciones' => $instituciones, 'tutoresInst' => $tutoresInst, 'numCambios' => $numCambios]);
     }
 
     public function cambioInstStore($id, Request $request)
@@ -212,6 +230,7 @@ class AsignacionController extends Controller
         $asignacion->horasRealizadas = 0 + $asignacionAnt->horasRealizadas;
         $asignacion->notaFinal = -1;
         $asignacion->observacion = "-";
+        $asignacion->observacionTutInst = "";
         $asignacion->practica()->associate($practica);
         $asignacion->alumno()->associate($alumno);
         $asignacion->tutorAcad()->associate($tutorAcad);
@@ -241,7 +260,9 @@ class AsignacionController extends Controller
             $idTitulacion = $titulacionPrincipal->id;
         }
 
-        $instituciones = Institucion::where('titulacion_id', $idTitulacion)->get();
+        $instituciones = Institucion::where('titulacion_id', $idTitulacion)
+        ->where('activo', true)
+        ->get();
 
         return response()->json($instituciones);
     }
@@ -252,7 +273,9 @@ class AsignacionController extends Controller
 
         $tutores = User::whereHas('roles', function ($q) use ($roleName) {
             $q->where('nombre', $roleName);
-        })->where('institucion_id', $request->institucion_id)->get();
+        })->where('institucion_id', $request->institucion_id)
+        ->where('activo', true)
+        ->get();
         
         return response()->json($tutores);
     }

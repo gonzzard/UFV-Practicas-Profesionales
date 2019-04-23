@@ -17,6 +17,7 @@ class CreateAsignacionsTable extends Migration
             $table->increments('id');
             $table->decimal('horasRealizadas');
             $table->decimal('notaFinal');
+            $table->decimal('notaTutorInst')->default(-1);
             $table->integer('alumno_id')->unsigned();
             $table->foreign('alumno_id')->references('id')->on('users');
             $table->integer('tutorAcad_id')->unsigned();
@@ -28,6 +29,7 @@ class CreateAsignacionsTable extends Migration
             $table->integer('asignacion_anterior_id')->nullable()->unsigned();
             $table->foreign('asignacion_anterior_id')->references('id')->on('asignacions');
             $table->string('observacion');
+            $table->text('observacionTutInst');
             $table->timestamps();
         });
     }

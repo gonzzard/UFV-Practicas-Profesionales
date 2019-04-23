@@ -12,7 +12,7 @@
 
 <br>
 
-<a href="{{ url('user') }}"class="btn btn-primary" >
+<a href="{{ url('user') }}" class="btn btn-primary">
     <i class="fa fa-arrow-left"></i> Volver
 </a>
 
@@ -23,13 +23,14 @@
         <div class="col-md-8">
             <form method="POST" action="{{ route('user.update', $user->id) }}">
                 @csrf {{ method_field('PATCH') }}
-                
+
                 <div class="form-group row">
                     <label for="docIdentificacion" class="col-md-4 col-form-label text-md-right">Documento</label>
 
                     <div class="col-md-6">
                         <input id="docIdentificacion" type="text" class="form-control{{ $errors->has('docIdentificacion') ? ' is-invalid' : '' }}"
-                        title="Solo son válidos DNIs sin letra" name="docIdentificacion" value="{{ $user->docIdentificacion }}" required pattern="[0-9]{8}" autofocus title="Solo números del documento de identificación.">                        @if ($errors->has('docIdentificacion'))
+                            title="Solo son válidos DNIs sin letra" name="docIdentificacion" value="{{ $user->docIdentificacion }}"
+                            required pattern="[0-9]{8}" autofocus title="Solo números del documento de identificación.">                        @if ($errors->has('docIdentificacion'))
                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('docIdentificacion') }}</strong>
                                         </span> @endif
@@ -87,20 +88,26 @@
                 <div class="form-group row">
                     <label for="role" class="col-md-4 col-form-label text-md-right">Roles</label>
                     <div class="col-md-6">
-                        @foreach($allRoles as $role) 
+                        @foreach($allRoles as $role)
                         <div class="form-check">
                             @if ($user->roles->contains($role['id']))
-                                <input type="checkbox" name="role[]" value="{{ $role['id'] }}" checked>
-                                <label class="form-check-label" for="role[]">{{ $role['nombre'] }}</label><br> 
-                            @else
-                                <input type="checkbox" name="role[]" value="{{ $role['id'] }}">
-                                <label class="form-check-label" for="role[]">{{ $role['nombre'] }}</label><br>
-                            @endif 
+                            <input type="checkbox" name="role[]" value="{{ $role['id'] }}" checked>
+                            <label class="form-check-label" for="role[]">{{ $role['nombre'] }}</label><br> @else
+                            <input type="checkbox" name="role[]" value="{{ $role['id'] }}">
+                            <label class="form-check-label" for="role[]">{{ $role['nombre'] }}</label><br> @endif
                         </div>
                         @endforeach
                     </div>
                 </div>
+                <div class="form-group row">
+                    <div class="custom-control custom-switch"  style="left: 45%; position: relative;">
+                        <br>
+                        <input type="checkbox" class="custom-control-input" id="activo" name="activo" @if($user->activo == 1)checked=checked @endif>
+                        <label class="custom-control-label" for="activo">Activo</label>
+                    </div>
+                </div>
 
+                <br>
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4" style="text-align:center;">
                         <button type="submit" class="btn btn-primary" id="checkBtn" name="checkBtn">
@@ -114,9 +121,9 @@
         </div>
     </div>
 
-    
-<script>
-    jQuery(document).ready(function(){
+
+    <script>
+        jQuery(document).ready(function(){
         $('#checkBtn').click(function() {
           checked = $("input[type=checkbox]:checked").length;
           if(!checked) {
@@ -125,5 +132,6 @@
           }
         });
     });
-</script>
+
+    </script>
 @endsection

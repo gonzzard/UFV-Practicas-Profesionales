@@ -26,6 +26,7 @@
                                 <th scope="col"><i class="fas fa-phone"></i> Teléfono</th>
                                 <th scope="col" style="text-align:center;"><i class="fas fa-user"></i> Responsable</th>
                                 <th scope="col" style="text-align:center;"><i class="fas fa-map-marked-alt"></i> Dirección</th>
+                                <th scope="col"><i class="fas fa-unlock-alt"></i> Activo</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -47,6 +48,13 @@
                             <td class="vertical-center" scope="row" style="text-align:center;">
                                     {{ str_limit($inst->direccion, $limit = 20, $end = '...') }}
                             </td>
+                            <td class="vertical-center" scope="row" style="text-align:center;">
+                                    @if($inst->activo == 1)
+                                        <span class="text-success"><i class="fas fa-check"></i></span>
+                                    @else
+                                        <span class="text-danger"><i class="fas fa-times"></i></span>
+                                    @endif
+                                </td>
 
                             <td class="vertical-center" scope="row">
                                 <form method="POST" action='{{ route('instituciones.show', $inst->id) }}' onsubmit="return confirm('Confirmar eliminación del usuario');">

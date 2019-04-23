@@ -41,6 +41,7 @@ class InstitucionController extends Controller
         $posiblesResponsables = User::whereNotIn('id', $responsablesActuales)->whereHas('roles', function ($q) use ($roleName) {
             $q->where('nombre', $roleName);
         })
+        ->where('activo', true)
         ->get();
 
         return view('director.instituciones.create')->with(['responsables' => $posiblesResponsables]);
@@ -178,7 +179,7 @@ class InstitucionController extends Controller
         $responsable = User::where('id', $request['responsable_id'])->first();
 
         $institucion->responsable()->associate($responsable)->save();
-
+        $institucion->activo = (isset($request['activo'])) ? 1 : 0;
         $institucion->save();
 
         return redirect('instituciones');

@@ -81,6 +81,17 @@
                                 </span> @endif
                 </div>
             </div>
+
+            
+            <div class="form-group row">
+                    <div class="custom-control custom-switch"  style="left: 45%; position: relative;">
+                        <br>
+                        <input type="checkbox" class="custom-control-input" id="activo" name="activo" @if($user->activo == 1)checked=checked @endif disabled>
+                        <label class="custom-control-label" for="activo">Activo</label>
+                    </div>
+                </div>
+
+                <br>
         </div>
     </div>
 </div>

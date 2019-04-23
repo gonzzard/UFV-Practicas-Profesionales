@@ -23,6 +23,9 @@
                 <label>Actividad</label>
                 <input id="actividad" value="{{$evidencia->actividad}}" type="text" class="form-control" name="actividad" title="Actividad realizada" maxlength="140" required disabled>
                 <br>
+                <label>Formato</label>
+                <input id="Formato" value="{{$evidencia->formato}}" type="text" class="form-control" name="Formato" title="Formato" maxlength="140" required disabled>
+                <br>
                 <label>URL evidencias</label>
                 <textarea id="url" class="form-control" name="url" title="Dirección del repositorio con las evidencias" style="resize: none;"
                     rows="5" required disabled>{{$evidencia->urlEvidencias}}</textarea>

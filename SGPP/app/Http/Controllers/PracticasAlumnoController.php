@@ -67,6 +67,7 @@ class PracticasAlumnoController extends Controller
         $evidencia->horasRealizadas = $request->horas;
         $evidencia->validado = false;
         $evidencia->comprobado = false;
+        $evidencia->formato = $request->formato;
         $asignacion->entradasSeguimiento()->save($evidencia);
         $evidencia->save();
 

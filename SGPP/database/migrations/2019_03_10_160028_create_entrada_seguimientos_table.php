@@ -16,6 +16,7 @@ class CreateEntradaSeguimientosTable extends Migration
         Schema::create('entrada_seguimientos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('actividad');
+            $table->string('formato');
             $table->string('observacion');
             $table->string('urlEvidencias');
             $table->decimal('horasRealizadas');

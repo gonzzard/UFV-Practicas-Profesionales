@@ -68,11 +68,30 @@ class HomeController extends Controller
                 $query->where('denominacion', 'TERMINADA');
             })
             ->where('notaFinal', -1)
+            ->where('notaTutorInst', '>=', 0)
+            ->where('horasRealizadas', '>=', 'practica.horasTotales')
+            ->get()->ToArray();
+
+            $asignacionesTutorInst = Asignacion::with('practica', 'practica.titulacion', 'practica.cursoacad')
+            ->whereHas('practica', function ($query) use ($curso) {
+                $query->where('cursoacad_id', $curso->id);
+            })
+            ->with('alumno')
+            ->with('tutorAcad')
+            ->with('tutorInst', 'tutorInst.institucion')
+            ->with('estado')
+            ->where('tutorAcad_id', $usuarioActual->id)
+            ->whereHas('estado', function ($query) {
+                $query->where('denominacion', 'TERMINADA');
+            })
+            ->where('notaFinal', -1)
+            ->where('notaTutorInst', '<', 0)
             ->where('horasRealizadas', '>=', 'practica.horasTotales')
             ->get()->ToArray();
 
         return view('home')->with(['evidenciasPendientes' => count($evidencias), 'director' => $director,
-            'evaluacionesPendientes' => count($asignaciones)]);
+            'evaluacionesPendientes' => count($asignaciones),
+            'evaluacionesTutorInstPendientes' => count($asignacionesTutorInst)]);
     }
 
     /**

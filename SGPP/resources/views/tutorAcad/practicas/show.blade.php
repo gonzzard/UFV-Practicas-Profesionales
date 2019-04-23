@@ -57,20 +57,32 @@
                 </select>
             <br>
             <div class="row">
-                <div class="col-md-4">
-                    <label>Horas realizadas</label>
-                    <input class="form-control" type="text" value="{{ $asignacion->horasRealizadas}}" disabled style="text-align: center;">
+                    <div class="col-md-6">
+                        <label>Horas realizadas</label>
+                        <input class="form-control" type="text" value="{{ $asignacion->horasRealizadas}}" disabled style="text-align: center;">
+                    </div>
+                    <div class="col-md-6">
+                        <label>Horas totales</label>
+                        <input class="form-control" type="text" value="{{ $asignacion->practica->horasTotales }}" disabled style="text-align: center;">
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <label>Horas totales</label>
-                    <input class="form-control" type="text" value="{{ $asignacion->practica->horasTotales }}" disabled style="text-align: center;">
+                <br>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Nota final</label> @if($asignacion->notaFinal != -1)
+                        <input class="form-control" type="text" value="{{ $asignacion->notaFinal / 100}}" disabled style="text-align: center;">                    @else
+                        <input class="form-control" type="text" value="-" disabled style="text-align: center;"> @endif
+                    </div>
+                    <div class="col-md-6">
+                        <label>Nota tutor institucional</label> @if($asignacion->notaTutorInst != -1)
+                        <input class="form-control" type="text" value="{{ $asignacion->notaTutorInst}}" disabled style="text-align: center;">                    @else
+                        <input class="form-control" type="text" value="-" disabled style="text-align: center;"> @endif
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <label>Horas totales</label>
-                    <input class="form-control" type="text" value="{{ $asignacion->practica->horasTotales }}" disabled style="text-align: center;">
-                </div>
-            </div>
-            <br>
+                <br>
+                    <label>Observación tutor institucional</label>
+                    <textarea id="observacionTutInst" class="form-control" name="observacionTutInst" title="Observación tutor institucional" style="resize: none;" rows="5" required disabled>{{$asignacion->observacionTutInst}}</textarea>
+                <br>
             <div class="row">
                 <div class="col-md-12">
                     <div class="btn-group btn-group-justified" style="min-width: 100%" >

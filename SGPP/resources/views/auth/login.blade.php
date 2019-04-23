@@ -320,6 +320,9 @@
             </span> @endif
       <br>
       <input type="submit" class="fadeIn fourth" value="Iniciar sesión">
+      <br>      
+      <a class="reset_pass" href="{{url('/password/reset')}}">Recuperar contraseña</a>
+      <br><br>
     </form>
   </div>
 </div>

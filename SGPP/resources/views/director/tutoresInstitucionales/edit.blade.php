@@ -86,10 +86,10 @@
                 <div class="form-group row">
                     <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Institución</label>
                     <div class="col-md-6">
-                        <select class="form-control m-bot15" name="institucion_id" required disabled>
+                        <select class="form-control m-bot15" name="institucion_id" required @if($user->institucion != null) disabled @endif>
                         <option value="">Seleccione titulación</option>  
                         @foreach($instituciones as $inst)
-                            @if($inst->id == $user->institucion->id)
+                            @if(isset($user->institucion) && $inst->id == $user->institucion->id)
                                 <option value="{{ $inst->id }}" selected>{{ $inst->denominacion }}</option>  
                             @else
                                 <option value="{{ $inst->id }}">{{ $inst->denominacion }}</option>  
@@ -98,6 +98,16 @@
                     </select>
                     </div>
                 </div>
+
+                <div class="form-group row">
+                        <div class="custom-control custom-switch"  style="left: 45%; position: relative;">
+                            <br>
+                            <input type="checkbox" class="custom-control-input" id="activo" name="activo" @if($user->activo == 1)checked=checked @endif>
+                            <label class="custom-control-label" for="activo">Activo</label>
+                        </div>
+                    </div>
+    
+                    <br>
 
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4" style="text-align:center;">

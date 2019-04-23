@@ -165,15 +165,26 @@
 
         </div>
         <div class="col-md-3 ">
+            <a href="{{ url('descargaExcel') }}" class=" link-card " title="Tutores académicos">
+                        <br>
+                        <div class="card border-warning mx-sm-1 p-3 ufv-card">
+                            <div class="card border-warning shadow text-warning p-4 my-card ufv-card">
+                                <span class="fas fa-chalkboard-teacher fa-2x" style="margin-left: -3px;" aria-hidden="true"></span>
+                            </div>
+                            <div class="texto-card">
+                                <h4 class="text-center mt-3 rebosar">Descarga de</h4>
+                                <h4 class="text-center mt-3 rebosar">reportes</h4>
+                                <h1 class="text-center mt-2"></h1>
+                            </div>
+                        </div>
+                    </a>
         </div>
         <div class="col-md-3 ">
         </div>
     </div>
 </div>
 
-@endif @if (!Auth::guest() && Auth::user()->hasRole('Alumno'))
-
-@if (!Auth::guest() && (Auth::user()->hasRole('Administrador')
+@endif @if (!Auth::guest() && Auth::user()->hasRole('Alumno')) @if (!Auth::guest() && (Auth::user()->hasRole('Administrador')
 || Auth::user()->hasRole('Director de Grado')))
 <br><br> @endif
 
@@ -223,9 +234,7 @@
     </div>
 </div>
 
-@endif @if (!Auth::guest() && Auth::user()->hasRole('Tutor Académico'))
-
-@if (!Auth::guest() && (Auth::user()->hasRole('Alumno')
+@endif @if (!Auth::guest() && Auth::user()->hasRole('Tutor Académico')) @if (!Auth::guest() && (Auth::user()->hasRole('Alumno')
 || Auth::user()->hasRole('Director de Grado')))
 <br><br> @endif
 
@@ -327,6 +336,22 @@
             </a>
         </div>
         <div class="col-md-3 ">
+            <a href="{{ url('evaluacionesTutorInst') }}" class=" link-card ">
+                <br>
+                <div class="card border-warning mx-sm-1 p-3 ufv-card">
+                    <div class="card border-warning shadow text-warning p-4 my-card ufv-card">
+                        <span class="fa fa-certificate fa-2x" aria-hidden="true"></span>
+                    </div>
+                    <div class="texto-card">
+                        <h4 class="text-center mt-3">Evaluaciones</h4>
+                        @if($evaluacionesTutorInstPendientes == 0)
+                            <h4 class="text-center mt-3">-</h4>
+                        @else
+                            <h4 class="text-center mt-3 text-danger">{{$evaluacionesTutorInstPendientes}}</h4>
+                        @endif
+                    </div>
+                </div>
+            </a>
         </div>
         <div class="col-md-3 ">
         </div>

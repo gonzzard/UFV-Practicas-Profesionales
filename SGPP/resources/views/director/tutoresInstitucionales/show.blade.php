@@ -86,10 +86,25 @@
                 <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Institución</label>
                 <div class="col-md-6">
                     <select class="form-control m-bot15" name="institucion_id" required disabled>
+                        @if(isset($user->institucion))
                             <option value="{{ $user->institucion->id }}" selected>{{ $user->institucion->denominacion }}</option>  
+                        @else
+                            <option value="-1" selected>Sin institución</option> 
+                        @endif
                     </select>
                 </div>
             </div>
+
+            
+            <div class="form-group row">
+                    <div class="custom-control custom-switch"  style="left: 45%; position: relative;">
+                        <br>
+                        <input type="checkbox" class="custom-control-input" id="activo" name="activo" @if($user->activo == 1)checked=checked @endif disabled>
+                        <label class="custom-control-label" for="activo">Activo</label>
+                    </div>
+                </div>
+
+                <br>
         </div>
     </div>
 </div>

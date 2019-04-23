@@ -27,6 +27,7 @@
                                 <th scope="col"><i class="fas fa-user"></i> Nombre</th>
                                 <th scope="col"><i class="fas fa-envelope"></i> Email</th>
                                 <th scope="col"><i class="fas fa-id-card"></i> Documento</th>
+                                <th scope="col"><i class="fas fa-unlock-alt"></i> Activo</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -35,6 +36,13 @@
                             <td class="vertical-center" scope="row">{{ $user->apellido1 }} {{ $user->apellido2 }}, {{ $user->name }}</td>
                             <td class="vertical-center" scope="row">{{ $user->email }}</td>
                             <td class="vertical-center" scope="row">{{ $user->docIdentificacion }}</td>
+                            <td class="vertical-center" scope="row" style="text-align:center;">
+                                    @if($user->activo == 1)
+                                        <span class="text-success"><i class="fas fa-check"></i></span>
+                                    @else
+                                        <span class="text-danger"><i class="fas fa-times"></i></span>
+                                    @endif
+                                </td>
                             <td sclass="vertical-center" cope="row">
                                 <form method="POST" action='{{ route('tutoresAcademicos.show', $user->id) }}' onsubmit="return confirm('Confirmar eliminación del usuario');">
                                     {{ csrf_field() }} {{ method_field('DELETE') }}

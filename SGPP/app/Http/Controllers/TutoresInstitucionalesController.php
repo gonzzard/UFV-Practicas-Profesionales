@@ -28,7 +28,6 @@ class TutoresInstitucionalesController extends Controller
         $users = User::whereHas('roles', function ($q) use ($roleName) {
             $q->where('nombre', $roleName);
         })
-        ->whereIn('institucion_id', $instituciones)
         ->paginate(8);
 
         return view('director.tutoresInstitucionales.index')->with(['users' => $users]);
@@ -166,6 +165,10 @@ class TutoresInstitucionalesController extends Controller
         $user->apellido1 = $request['apellido1'];
         $user->apellido2 = $request['apellido2'];
         $user->docIdentificacion = $request['docIdentificacion'];
+        $user->activo = (isset($request['activo'])) ? 1 : 0;
+
+        $institucion = Institucion::where('id', $request->institucion_id)->first();
+        $user->institucion()->associate($institucion);
 
         $user->save();
 

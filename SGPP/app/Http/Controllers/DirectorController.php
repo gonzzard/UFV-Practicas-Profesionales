@@ -37,8 +37,9 @@ class DirectorController extends Controller
         $usuarios = User::whereHas('roles', function ($q) use ($roleName) {
             $q->where('nombre', $roleName);
         })
-            ->doesntHave('titulacion')
-            ->get();
+        ->where('activo', true)
+        ->doesntHave('titulacion')
+        ->get();
 
         return view('admin.directores.create')->with(['titulaciones' => $titulaciones, 'usuarios' => $usuarios]);
     }

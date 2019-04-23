@@ -127,6 +127,7 @@ class TutoresAcademicosController extends Controller
         $user->apellido1 = $request['apellido1'];
         $user->apellido2 = $request['apellido2'];
         $user->docIdentificacion = $request['docIdentificacion'];
+        $user->activo = (isset($request['activo'])) ? 1 : 0;
         $user->save();
 
         return redirect('tutoresAcademicos');

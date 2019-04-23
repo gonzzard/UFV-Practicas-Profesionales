@@ -7,6 +7,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\UsersImport;
 
 class UserController extends Controller
 {
@@ -62,8 +64,9 @@ class UserController extends Controller
             $user->roles()->attach(Role::where('id', $role)->first());
         }
 
-        return redirect('user');
+        $user->activo = 1;
 
+        return redirect('user');
     }
 
     /**
@@ -129,6 +132,7 @@ class UserController extends Controller
         $user->apellido1 = $request['apellido1'];
         $user->apellido2 = $request['apellido2'];
         $user->docIdentificacion = $request['docIdentificacion'];
+        $user->activo = (isset($request['activo'])) ? 1 : 0;
         $user->save();
 
         $user->roles()->sync($request->role);
@@ -157,5 +161,17 @@ class UserController extends Controller
         } else {
             return redirect('404');
         }
+    }
+
+    public function cargaExcel()
+    {
+        return view('admin.user.cargaUsuarios');
+    }
+
+    public function updateExcel(Request $request)
+    {
+        $resultado = Excel::import(new UsersImport, $request->excel);
+        dd($resultado);
+        return redirect('user');
     }
 }

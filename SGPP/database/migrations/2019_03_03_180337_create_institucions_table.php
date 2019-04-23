@@ -18,6 +18,7 @@ class CreateInstitucionsTable extends Migration
             $table->string('denominacion')->unique();
             $table->string('direccion');
             $table->string('telefono');
+            $table->boolean('activo')->default(1);
             $table->timestamps();
         });
     }

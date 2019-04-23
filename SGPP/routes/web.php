@@ -28,6 +28,9 @@ Route::resource('cursoacad', 'CursoAcadController')->middleware(['auth', 'role:A
 Route::resource('directores', 'DirectorController')->middleware(['auth', 'role:Administrador']);
 Route::resource('titulaciones', 'TitulacionController')->middleware(['auth', 'role:Administrador']);
 
+Route::get('cargaExcel', 'UserController@cargaExcel')->name('admin.user.cargaExcel')->middleware(['auth', 'role:Administrador']);
+Route::post('updateExcel', 'UserController@updateExcel')->name('admin.user.updateExcel')->middleware(['auth', 'role:Administrador']);
+
 // DIRECTOR GRADO
 Route::resource('instituciones', 'InstitucionController')->middleware(['auth', 'role:Director de Grado']);
 
@@ -94,3 +97,9 @@ Route::get('/tutorInst/practicasTutorizadas/', 'EvidenciasPorValidarController@p
 Route::get('/tutorInst/practicasTutorizadas/evidencias/{id}', 'EvidenciasPorValidarController@evidenciasPractica')->name('tutorInst.practicas.evidencias')->middleware(['auth', 'role:Tutor Institucional']);
 Route::get('/tutorInst/practicasTutorizadas/evidencia/{id}', 'EvidenciasPorValidarController@evidenciaPractica')->name('tutorInst.practicas.evidencia')->middleware(['auth', 'role:Tutor Institucional']);
 Route::get('/tutorInst/practicasTutorizadas/show/{id}', 'EvidenciasPorValidarController@show')->name('tutorInst.practicas.show')->middleware(['auth', 'role:Tutor Institucional']);
+
+Route::get('/evaluacionesTutorInst', 'EvaluacionesTutorInstPendientes@index')->name('tutorInst.evaluaciones.evaluaciones')->middleware(['auth', 'role:Tutor Institucional']);
+Route::get('/evaluacionesTutorInst/{id}', 'EvaluacionesTutorInstPendientes@evaluacion')->name('tutorInst.evaluaciones.evaluacion')->middleware(['auth', 'role:Tutor Institucional']);
+Route::post('/evaluacionesTutorInst/{id}', 'EvaluacionesTutorInstPendientes@evaluarPracticas')->name('tutorInst.evaluaciones.evaluacion')->middleware(['auth', 'role:Tutor Institucional']);
+
+Route::get('descargaExcel', 'ReportesController@reporteAsignaciones');
