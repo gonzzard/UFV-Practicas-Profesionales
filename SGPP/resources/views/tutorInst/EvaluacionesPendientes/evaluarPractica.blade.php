@@ -30,7 +30,7 @@
                 <br>
                 <label>Observación tutor institucional</label>
                 <textarea id="observacionTutInst" class="form-control" name="observacionTutInst" title="Observación tutor institucional"
-                    style="resize: none;" rows="5" required></textarea>
+                    style="resize: none;" rows="5" required maxlength="3000"></textarea>
                 <br>
 
                 <div class="form-group" style="text-align:center">

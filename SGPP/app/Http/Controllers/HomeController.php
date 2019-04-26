@@ -80,7 +80,7 @@ class HomeController extends Controller
             ->with('tutorAcad')
             ->with('tutorInst', 'tutorInst.institucion')
             ->with('estado')
-            ->where('tutorAcad_id', $usuarioActual->id)
+            ->where('tutorInst_id', $usuarioActual->id)
             ->whereHas('estado', function ($query) {
                 $query->where('denominacion', 'TERMINADA');
             })
