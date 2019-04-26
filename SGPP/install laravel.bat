@@ -1,3 +1,0 @@
-cd C:\xampp\htdocs
-composer install
-set /p DUMMY=Pulsa ENTER para terminar la instalación...

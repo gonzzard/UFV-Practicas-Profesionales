@@ -17,7 +17,7 @@ class MinSeeder extends Seeder
      */
     public function run()
     {
-	$role_admin = Role::where('nombre', 'Administrador')->first();
+	
 
         $cursoacad = new Cursoacad();
         $cursoacad->denominacion = "2020-21";
@@ -74,13 +74,15 @@ class MinSeeder extends Seeder
 
         $rol_Director->save();
 
+        $role_admin = Role::where('nombre', 'Administrador')->first();
+
         $usuario_admin = new User();
         $usuario_admin->name = "Administrador";
         $usuario_admin->docIdentificacion = "54023837";
         $usuario_admin->email = "admin@f.es";
         $usuario_admin->password = bcrypt('1234asdF!');
-        $usuario_admin->roles()->attach($role_admin);
         $usuario_admin->save();
+        $usuario_admin->roles()->attach($role_admin);
 
         $estadoAsig = new Estadoasignacion();
         $estadoAsig->denominacion = "EN PROCESO";
