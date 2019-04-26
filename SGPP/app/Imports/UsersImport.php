@@ -22,10 +22,14 @@ class UsersImport implements ToModel
     {
         try
         {
+            
+
             if($row[0] == "" || $row[0] == null
-                || row[1] == "" || $row[1] == null
-                || row[3] == "" || $row[3] == null
-                || row[4] == "" || $row[4] == null)
+                || $row[1] == "" || $row[1] == null
+                || $row[3] == "" || $row[3] == null
+                || $row[4] == "" || $row[4] == null
+                || !filter_var($row[3], FILTER_VALIDATE_EMAIL)
+                || !preg_match('/^[0-9]{8}$/', $row[4]))
             {
                 return null;
             }

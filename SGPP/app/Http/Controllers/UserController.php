@@ -19,7 +19,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('roles')->paginate(8);
+        $users = User::with('roles')->orderBy('apellido1', 'ASC')->paginate(8);
         return view('admin.user.index')->with(['users' => $users]);
     }
 
@@ -171,7 +171,6 @@ class UserController extends Controller
     public function updateExcel(Request $request)
     {
         $resultado = Excel::import(new UsersImport, $request->excel);
-        dd($resultado);
         return redirect('user');
     }
 }
