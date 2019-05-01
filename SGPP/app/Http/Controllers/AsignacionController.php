@@ -208,7 +208,18 @@ class AsignacionController extends Controller
             }
         }
 
-        $instituciones = Institucion::where('titulacion_id', $asignacion->practica->titulacion->id)->get();
+        $tit_princ = -1;
+
+        if($asignacion->practica->titulacion->mencion == 0)
+        {
+            $tit_princ = $asignacion->practica->titulacion->id;
+        }
+        else
+        {
+            $tit_princ = $asignacion->practica->titulacion->titulacion_principal_id;
+        }
+
+        $instituciones = Institucion::where('titulacion_id', $tit_princ)->get();
 
         return view('director.asignaciones.cambioInst')->with(['asignacion' => $asignacion, 'tutoresAcad' => $tutoresAcad,
             'instituciones' => $instituciones, 'tutoresInst' => $tutoresInst, 'numCambios' => $numCambios]);

@@ -169,7 +169,7 @@
                         <br>
                         <div class="card border-warning mx-sm-1 p-3 ufv-card">
                             <div class="card border-warning shadow text-warning p-4 my-card ufv-card">
-                                <span class="fas fa-chalkboard-teacher fa-2x" style="margin-left: -3px;" aria-hidden="true"></span>
+                                <span class="fas fa-file-alt fa-2x" style="margin-left: 0px;" aria-hidden="true"></span>
                             </div>
                             <div class="texto-card">
                                 <h4 class="text-center mt-3 rebosar">Descarga de</h4>
