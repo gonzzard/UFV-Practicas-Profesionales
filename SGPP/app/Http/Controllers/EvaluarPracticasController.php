@@ -34,6 +34,7 @@ class EvaluarPracticasController extends Controller
                 $query->where('denominacion', 'TERMINADA');
             })
             ->where('notaFinal', -1)
+            ->where('notaTutorInst','>', -1)
             ->where('horasRealizadas', '>=', 'practica.horasTotales')
             ->paginate(8);
 

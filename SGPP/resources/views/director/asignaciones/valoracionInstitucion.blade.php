@@ -31,8 +31,7 @@
                             <?php 
                                 if(count($asignacion->encuestaPracticas) > 0)
                                 {
-                                    $key = array_search($criterio->id, array_column($asignacion->encuestaPracticas->ToArray(), 'id')); 
-                                    $notaTemp = $asignacion->encuestaPracticas->ToArray()[$key]["nota"];
+                                    $notaTemp = $asignacion->encuestaPracticas->ToArray()[$i]["nota"];
                                 }
                                 ?>
                             <tr>
@@ -41,6 +40,7 @@
                                     {{ $criterio->denominacion}}
                                 </td>
                                 <td class="vertical-center" scope="row" style="float:right;">
+                               
                                     <input id="criterio[{{$i}}][valor]" type="number" min="1" max="10" name="criterio[{{$i}}][valor]" @if(isset($notaTemp)) value="{{$notaTemp}}" @endif class="form-control"
                                         required style="width: 100px; text-align:center" disabled></td>
                             </tr>

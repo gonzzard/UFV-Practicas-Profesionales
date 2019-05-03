@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <h2>Editar criterio evaluación institución</h2>
+        <h2>Ver criterio evaluación institución</h2>
     </div>
 </div>
 

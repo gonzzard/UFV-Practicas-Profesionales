@@ -11,7 +11,7 @@
 <hr>
 <br>
 
-<a href="{{ url('directores') }}"class="btn btn-primary" >
+<a href="{{ url('cursoacad') }}"class="btn btn-primary" >
     <i class="fa fa-arrow-left"></i> Volver
 </a>
 

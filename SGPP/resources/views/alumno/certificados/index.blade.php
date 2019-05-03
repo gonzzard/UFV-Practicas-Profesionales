@@ -46,7 +46,7 @@
                             <td class="vertical-center" scope="row" style="text-align:center;">{{ $asignacion->notaFinal / 100}}</td>
                             <td class="vertical-center" scope="row">
                                 <div class="btn-group btn-group-justified">
-                                    <button @if($asignacion->notaFinal / 100 >= 5) @endif class="btn btn-info" type="button" title="Descargar certificado prácticas finalizadas" onclick="window.location='{{ route('alumno.certificados.descarga', $asignacion->id) }}'"><i
+                                    <button @if($asignacion->notaFinal / 100 < 5)  disabled @endif class="btn btn-info" type="button" title="Descargar certificado prácticas finalizadas" onclick="window.location='{{ route('alumno.certificados.descarga', $asignacion->id) }}'"><i
                                             class="fa fa-file-pdf"></i></button>
                                 </div>
                             </td>

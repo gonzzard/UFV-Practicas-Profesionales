@@ -33,8 +33,7 @@
                             <?php 
                             if(count($asignacion->evaluacions) > 0)
                                 {
-                                    $key = array_search($criterio->id, array_column($asignacion->evaluacions->ToArray(), 'id')); 
-                                    $notaTemp = $asignacion->evaluacions->ToArray()[$key]["nota"];
+                                    $notaTemp = $asignacion->evaluacions->ToArray()[$i]["nota"];
                                 }
                                 ?>
                             <tr>
